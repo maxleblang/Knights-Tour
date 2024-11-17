@@ -1,4 +1,5 @@
 **EX21 - CMD_PROC**
 
-NOT passing all the tests.\
-Currently failing the test that says "frwrd should be max not ..."
+![testsPASSED](https://github.com/user-attachments/assets/8f785d55-d120-4096-a9aa-a38084eb9d9e)
+
+
