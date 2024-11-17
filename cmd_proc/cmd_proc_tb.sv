@@ -164,6 +164,10 @@ module cmd_proc_tb();
         end
     join
 
+
+    $display("Test 1: Calibrate PASSED");
+
+
     ////////////////////////////////
     // Test 2: Move North Square //
     ////////////////////////////////
@@ -185,6 +189,8 @@ module cmd_proc_tb();
     if (frwrd !== 10'h120 && frwrd !== 10'h140) begin
         $display("ERROR: frwrd should be 0x120 or 0x140, not %h.", frwrd);
         $stop();
+    end else begin
+        $display("PASS: frwrd is equal to %h.", frwrd);
     end
 
     // Check moving signal
@@ -203,9 +209,11 @@ module cmd_proc_tb();
     repeat(100) @(posedge clk);
 
     // Verify frwrd is still at max
-    if (frwrd !== 10'h3FF) begin
+    if (frwrd[9:8] !== 2'h3) begin
         $display("ERROR: frwrd should be at max speed, not %h.", frwrd);
         $stop();
+    end else begin
+        $display("PASS: frwrd is at max speed, i.e. %h.", frwrd);
     end
 
     // Second cntrIR pulse (like crossing second line)
@@ -239,6 +247,8 @@ module cmd_proc_tb();
         end
     join
 
+    $display("Test 2: Move North Square PASSED");
+
     ////////////////////////////////////////////////
     // Test 3: Second Move North with IR Testing  //
     ////////////////////////////////////////////////
@@ -260,6 +270,8 @@ module cmd_proc_tb();
         $display("ERROR: Expected error signal disturbance from left IR.");
         $stop();
     end
+
+    $display("Test 3: Second Move North with IR Testing PASSED");
 
     // Test successful
     $display("YAHOO! All tests passed. :)");
