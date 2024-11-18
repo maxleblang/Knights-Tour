@@ -49,11 +49,11 @@ module cmd_proc(clk, rst_n, cmd, cmd_rdy, clr_cmd_rdy, send_resp, tour_go, headi
             frwrd <= 10'h000;
         end else if(enable_counter) begin
             if(inc_frwrd) begin
-            frwrd <= frwrd + counter_inc;
+                frwrd <= frwrd + counter_inc;
+            end else if(dec_frwrd) begin
+                frwrd <= frwrd - counter_dec;
             end
-        end else if(dec_frwrd) begin
-            frwrd <= frwrd - counter_dec;
-            end
+        end
     end
 
     // -- END FRWRD REGISTER -- //
