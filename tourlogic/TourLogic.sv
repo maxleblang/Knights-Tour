@@ -1,5 +1,7 @@
 module TourLogic(clk,rst_n,x_start,y_start,go,done,indx,move);
 
+  //TODO: run sometimes doesn't print?
+
   input clk,rst_n;				        // 50MHz clock and active low asynch reset
   input [2:0] x_start, y_start;	  // starting position on 5x5 board
   input go;						            // initiate calculation of solution
@@ -49,7 +51,7 @@ module TourLogic(clk,rst_n,x_start,y_start,go,done,indx,move);
     end else if (init) begin
 	    board[x_start][y_start] <= 5'h1;	// mark starting position
     end else if (update_position) begin 
-      board[nxt_xx][nxt_yy] <= 1;	// mark as visited 
+      board[nxt_xx][nxt_yy] <= move_num + 2;	// mark as visited 
     end else if (backup)
 	    board[xx][yy] <= 5'h0;			// mark as unvisited
   end
@@ -59,7 +61,10 @@ module TourLogic(clk,rst_n,x_start,y_start,go,done,indx,move);
   // -- XX AND YY LOGIC -- //
 
   always_ff @(posedge clk) begin
-    if (init) begin
+    if (zero) begin
+      xx <= 8'h0;
+      yy <= 8'h0;
+    end else if (init) begin
 	    xx <= x_start;
       yy <= y_start;
     end else if (update_position) begin
@@ -91,7 +96,9 @@ module TourLogic(clk,rst_n,x_start,y_start,go,done,indx,move);
   // -- MOVE_TRY LOGIC -- //
   
   always_ff @ (posedge clk) begin
-    if (check_possible) begin
+    if (zero) begin
+      move_try <= 8'h0;
+    end else if (check_possible) begin
       move_try <= 8'h01;
     end else if (try_nxt_move) begin
       move_try <= move_try << 1;
@@ -185,7 +192,7 @@ module TourLogic(clk,rst_n,x_start,y_start,go,done,indx,move);
           if(move_num != 5'd23) begin
             next_state = POSSIBLE;
           end else begin
-            next_state = IDLE;
+            next_state = IDLE; //TODO: deassert go?
             done = 1;
           end          
         end else begin
