@@ -55,6 +55,8 @@ module TourLogic_tb();
 	    $display("%2d  %2d  %2d  %2d  %2d\n",iDUT.board[0][y],iDUT.board[1][y],
 		         iDUT.board[2][y],iDUT.board[3][y],iDUT.board[4][y]);
 	end
+	$display("poss moves: %b\n", iDUT.poss_moves[iDUT.move_num-1]);
+	$display("move try: %b\n", iDUT.move_try);
 	$display("--------------------\n");
   end
   

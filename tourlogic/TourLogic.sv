@@ -49,7 +49,7 @@ module TourLogic(clk,rst_n,x_start,y_start,go,done,indx,move);
     end else if (init) begin
 	    board[x_start][y_start] <= 5'h1;	// mark starting position
     end else if (update_position) begin 
-      board[nxt_xx][nxt_yy] <= move_num + 2;	// mark as visited 
+      board[nxt_xx][nxt_yy] <= 1;	// mark as visited 
     end else if (backup)
 	    board[xx][yy] <= 5'h0;			// mark as unvisited
   end
@@ -77,6 +77,8 @@ module TourLogic(clk,rst_n,x_start,y_start,go,done,indx,move);
 
   always_ff @(posedge clk) begin
     if (zero) begin
+      poss_moves[move_num] <= 8'b0;
+    end else if(init) begin
       poss_moves[move_num] <= 8'b0;
     end else if(check_possible) begin
       poss_moves[move_num] <= calc_poss(xx, yy);
@@ -241,8 +243,8 @@ module TourLogic(clk,rst_n,x_start,y_start,go,done,indx,move);
 
       8'b00000001: off_x = 3'b001; //+1
       8'b00000010: off_x = 3'b111; //-1
-      8'b00000100: off_x = 3'b101; //-2
-      8'b00001000: off_x = 3'b101; //-2
+      8'b00000100: off_x = 3'b110; //-2
+      8'b00001000: off_x = 3'b110; //-2
       8'b00010000: off_x = 3'b111; //-1
       8'b00100000: off_x = 3'b001; //+1
       8'b01000000: off_x = 3'b010; //+2
@@ -261,8 +263,8 @@ module TourLogic(clk,rst_n,x_start,y_start,go,done,indx,move);
       8'b00000010: off_y = 3'b010; //+2
       8'b00000100: off_y = 3'b001; //+1
       8'b00001000: off_y = 3'b111; //-1
-      8'b00010000: off_y = 3'b101; //-2
-      8'b00100000: off_y = 3'b101; //-2
+      8'b00010000: off_y = 3'b110; //-2
+      8'b00100000: off_y = 3'b110; //-2
       8'b01000000: off_y = 3'b111; //-1
       8'b10000000: off_y = 3'b001; //+1
 
