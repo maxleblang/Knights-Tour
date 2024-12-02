@@ -61,9 +61,7 @@ module cmd_proc(clk, rst_n, cmd, cmd_rdy, clr_cmd_rdy, send_resp, tour_go, headi
 
     // -- START COUNTING SQUARES LOGIC -- //
 
-    always_ff@(posedge clk, negedge rst_n) begin
-        if (!rst_n) begin
-            cntrIR1 <= 0;
+    always_ff@(posedge clk) begin
         end else begin
             cntrIR1 <= cntrIR;
             end
@@ -72,10 +70,13 @@ module cmd_proc(clk, rst_n, cmd, cmd_rdy, clr_cmd_rdy, send_resp, tour_go, headi
     assign cntrIR_rising_edge = cntrIR && !cntrIR1;
 
     always_ff@(posedge clk, negedge rst_n) begin
-        if (move_cmd) begin
+		if (!rst_n) begin
+			squares_moved_counter <= 0;
+		end
+        else if (move_cmd) begin
             squares_moved_counter <= 0;
         end
-        if (cntrIR_rising_edge) begin
+        else if (cntrIR_rising_edge) begin
             squares_moved_counter <= squares_moved_counter + 1;
         end
 

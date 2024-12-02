@@ -103,7 +103,7 @@ module TourLogic(clk,rst_n,x_start,y_start,go,done,indx,move);
     end else if (try_nxt_move) begin
       move_try <= move_try << 1;
     end else if (backup) begin
-      move_try = (last_move[move_num - 1]) << 1;
+      move_try <= (last_move[move_num - 1]) << 1;
     end
   end
 

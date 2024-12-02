@@ -1,7 +1,7 @@
 ###############################
 # Read file as system verilog #
 ###############################
-read_file -format sverilog { KnightsTour.sv inert_inft.sv IR_intf.sv rst_synch.sv sponge.sv cmd_proc.sv TourCmd.sv PID.sv UART_wrapper.sv TourLogic.sv MtrDrv.sv }
+read_file -format sverilog { KnightsTour.sv, inert_intf.sv, IR_intf.sv, rst_synch.sv, sponge.sv, cmd_proc.sv, TourCmd.sv, PID.sv, UART_wrapper.sv, TourLogic.sv, MtrDrv.sv }
 
 ##############################
 # Setting the current design #
@@ -73,4 +73,4 @@ report_area > KnightsTour_area.txt
 ##############################
 # Gate level verilog netlist #
 ##############################
-write -format verilog UART -output KnightsTour.vg
+write -format verilog KnightsTour -output KnightsTour.vg
