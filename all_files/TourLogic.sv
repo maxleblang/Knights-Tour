@@ -153,6 +153,8 @@ module TourLogic(clk,rst_n,x_start,y_start,go,done,indx,move);
     current_state <= next_state;
     end
   end
+  
+//TODO: SYNTHESIS SAYS THIS CONTAINS A LATCH
 
  //state machine logic
   always_comb begin

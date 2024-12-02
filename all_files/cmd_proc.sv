@@ -62,9 +62,7 @@ module cmd_proc(clk, rst_n, cmd, cmd_rdy, clr_cmd_rdy, send_resp, tour_go, headi
     // -- START COUNTING SQUARES LOGIC -- //
 
     always_ff@(posedge clk) begin
-        end else begin
             cntrIR1 <= cntrIR;
-            end
         end
 
     assign cntrIR_rising_edge = cntrIR && !cntrIR1;
@@ -138,6 +136,8 @@ module cmd_proc(clk, rst_n, cmd, cmd_rdy, clr_cmd_rdy, send_resp, tour_go, headi
     else
         state <= nxt_state;
     
+    //TODO: SYNTHESIS SAYS THIS CONTAINS A LATCH
+
     always_comb begin
 
         //defaults
