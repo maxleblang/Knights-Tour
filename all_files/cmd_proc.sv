@@ -80,13 +80,9 @@ module cmd_proc(clk, rst_n, cmd, cmd_rdy, clr_cmd_rdy, send_resp, tour_go, headi
 
     end
 
-    always_ff@(posedge clk, negedge rst_n) begin
-        if (!rst_n) begin
-            squares_to_move <= 0;
-        end else begin
+    always_ff@(posedge clk) begin
             if(move_cmd)
                 squares_to_move <= cmd[2:0];
-        end
     end
 
     logic [3:0] double_sqaures_to_move;

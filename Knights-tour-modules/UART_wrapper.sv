@@ -1,6 +1,6 @@
-module UART_wrapper (clk, rst_n, RX, clr_command_rdy, trmt, tx_done, resp, cmd_rdy, cmd, TX);
+module UART_wrapper (clk, rst_n, RX, clr_cmd_rdy, trmt, tx_done, resp, cmd_rdy, cmd, TX);
 
-    input wire clk, rst_n, RX, clr_command_rdy, trmt;  // input signals for clock, reset, and uart control
+    input wire clk, rst_n, RX, clr_cmd_rdy, trmt;  // input signals for clock, reset, and uart control
     input wire [7:0] resp;  // 8-bit response input
     output reg cmd_rdy;  // output to indicate command is ready
     output reg [15:0] cmd;  // 16-bit command output
@@ -36,14 +36,14 @@ module UART_wrapper (clk, rst_n, RX, clr_command_rdy, trmt, tx_done, resp, cmd_r
     end
 
     // internal signals for sr flop for command ready control
-    logic clr_cmd_rdy;  // clear command ready signal
+    logic clr_cmd_rdy_int;  // clear command ready signal internal
     logic set_cmd_rdy;  // set command ready signal
 
     // sr flop for command ready control
     always_ff @(posedge clk or negedge rst_n) begin
         if (!rst_n)  // reset condition
             cmd_rdy <= 1'b0;  // reset cmd_rdy
-        else if (clr_cmd_rdy || clr_command_rdy)  // if either clear signal is high
+        else if (clr_cmd_rdy_int || clr_cmd_rdy)  // if either clear signal is high
             cmd_rdy <= 1'b0;  // clear cmd_rdy
         else if (set_cmd_rdy)  // if set signal is high
             cmd_rdy <= 1'b1;  // set cmd_rdy
@@ -67,7 +67,7 @@ module UART_wrapper (clk, rst_n, RX, clr_command_rdy, trmt, tx_done, resp, cmd_r
         set_cmd_rdy = 1'b0;
         select_high = 1'b0;
         next_state = current_state;
-        clr_cmd_rdy = 1'b0;
+        clr_cmd_rdy_int = 1'b0;
 
         // state transition cases
         case (current_state)
@@ -75,7 +75,7 @@ module UART_wrapper (clk, rst_n, RX, clr_command_rdy, trmt, tx_done, resp, cmd_r
                 if (rx_rdy) begin  // if data is ready
                     clr_rdy = 1'b1;  // clear ready signal
                     select_high = 1'b1;  // select high byte
-                    clr_cmd_rdy = 1'b1;  // clear cmd ready
+                    clr_cmd_rdy_int = 1'b1;  // clear cmd ready
                     next_state = low;  // move to low state
                 end
             end
@@ -92,3 +92,4 @@ module UART_wrapper (clk, rst_n, RX, clr_command_rdy, trmt, tx_done, resp, cmd_r
     end
 
 endmodule
+
