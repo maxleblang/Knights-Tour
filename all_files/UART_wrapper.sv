@@ -1,98 +1,192 @@
-module UART_wrapper (clk, rst_n, RX, clr_cmd_rdy, trmt, tx_done, resp, cmd_rdy, cmd, TX);
+module UART_wrapper(clk, rst_n, RX, TX, resp, trmt, tx_done, cmd, cmd_rdy, clr_cmd_rdy);
 
-    input wire clk, rst_n, RX, clr_cmd_rdy, trmt;  // input signals for clock, reset, and uart control
-    input wire [7:0] resp;  // 8-bit response input
-    output reg cmd_rdy;  // output to indicate command is ready
-    output reg [15:0] cmd;  // 16-bit command output
-    output wire TX, tx_done;  // uart transmission and done status outputs
+    input clk, rst_n;              // Clock and active-low reset
+    input trmt, clr_cmd_rdy;       // Transmit signal and clear command ready signal
+    input RX;                      // UART receive line
+    input [7:0] resp;              // Data to transmit
+    output logic TX, tx_done;      // UART transmit line and transmission done signal
+    output logic [15:0] cmd;       // Combined 16-bit command
+    output logic cmd_rdy;          // Command ready signal
 
-    logic rx_rdy, select_high, clr_rdy;  // internal control signals
-    logic [7:0] rx_data;  // stores received data byte
+    // Internal signals
+    logic rx_rdy;                  // Receive ready signal from UART
+    logic clr_rx_rdy;              // Clear receive ready signal
+    logic cmd_high_rdy;            // Indicates readiness to capture the high byte of the command
+    logic set_cmd_rdy;             // Sets command ready state
 
-    // instantiate the uart module
-    UART iDUT (
-        .clk(clk), 
-        .rst_n(rst_n), 
-        .RX(RX), 
-        .TX(TX), 
-        .rx_rdy(rx_rdy), 
-        .clr_rx_rdy(clr_rdy), 
-        .rx_data(rx_data), 
-        .trmt(trmt), 
-        .tx_data(tx_data), 
+    logic [7:0] rx_data;           // Data received from UART
+    logic [7:0] cmd_high;          // High byte of command
+    logic [7:0] cmd_low;           // Low byte of command
+
+    // UART instantiation
+    UART iUART(module UART_wrapper(clk, rst_n, RX, TX, resp, trmt, tx_done, cmd, cmd_rdy, clr_cmd_rdy);
+
+    input clk, rst_n;              // Clock and active-low reset
+    input trmt, clr_cmd_rdy;       // Transmit signal and clear command ready signal
+    input RX;                      // UART receive line
+    input [7:0] resp;              // Data to transmit
+    output logic TX, tx_done;      // UART transmit line and transmission done signal
+    output logic [15:0] cmd;       // Combined 16-bit command
+    output logic cmd_rdy;          // Command ready signal
+
+    // Internal signals
+    logic rx_rdy;                  // Receive ready signal from UART
+    logic clr_rx_rdy;              // Clear receive ready signal
+    logic cmd_high_rdy;            // Indicates readiness to capture the high byte of the command
+    logic set_cmd_rdy;             // Sets command ready state
+
+    logic [7:0] rx_data;           // Data received from UART
+    logic [7:0] cmd_high;          // High byte of command
+    logic [7:0] cmd_low;           // Low byte of command
+
+    // UART instantiation
+    UART iUART(
+        .clk(clk),
+        .rst_n(rst_n),
+        .RX(RX),
+        .TX(TX),
+        .rx_rdy(rx_rdy),
+        .clr_rx_rdy(clr_rx_rdy),
+        .rx_data(rx_data),
+        .trmt(trmt),
+        .tx_data(resp),
         .tx_done(tx_done)
     );
 
-    // define two states: high and low
-    typedef enum logic { high, low } state_t;
-    state_t current_state, next_state;  // current and next state registers
+    // Capture high byte of the command
+    always_ff @(posedge clk)
+        if (cmd_high_rdy)
+            cmd_high <= rx_data;
 
-    // state transition logic
-    always_ff @(posedge clk or negedge rst_n) begin
-        if (!rst_n)  // reset condition
-            current_state <= high;  // set to high state on reset
-        else 
-            current_state <= next_state;  // update to next state
-    end
+    // Directly assign low byte of the command
+    assign cmd_low = rx_data;
 
-    // internal signals for sr flop for command ready control
-    logic clr_cmd_rdy_int;  // clear command ready signal internal
-    logic set_cmd_rdy;  // set command ready signal
+    // Combine high and low bytes into a 16-bit command
+    assign cmd = {cmd_high, cmd_low};
 
-    // sr flop for command ready control
-    always_ff @(posedge clk or negedge rst_n) begin
-        if (!rst_n)  // reset condition
-            cmd_rdy <= 1'b0;  // reset cmd_rdy
-        else if (clr_cmd_rdy_int || clr_cmd_rdy)  // if either clear signal is high
-            cmd_rdy <= 1'b0;  // clear cmd_rdy
-        else if (set_cmd_rdy)  // if set signal is high
-            cmd_rdy <= 1'b1;  // set cmd_rdy
-    end
+    // Control command ready signal
+    always_ff @(posedge clk, negedge rst_n)
+        if (!rst_n)
+            cmd_rdy <= 1'b0;      // Reset command ready on reset
+        else if (clr_cmd_rdy)
+            cmd_rdy <= 1'b0;      // Clear command ready when requested
+        else if (set_cmd_rdy)
+            cmd_rdy <= 1'b1;      // Set command ready when command is complete
 
-    logic [7:0] storing_high;  // register to hold the high byte
+    // State machine definitions
+    typedef enum logic [1:0] {
+        HIGH, LOW
+    } state_t;
 
-    // store the high byte when select_high is active
-    always_ff @(posedge clk or negedge rst_n) begin
-		if (!rst_n) begin
-			storing_high <= 0;
-		end
-        else if (select_high)  // if select_high is active
-            storing_high <= rx_data;  // store received data
-    end
+    state_t state, nxt_state;
 
-    // concatenate high and low bytes to form the 16-bit command
-    assign cmd = {storing_high, rx_data};
+    // State transition logic
+    always_ff @(posedge clk, negedge rst_n)
+        if (!rst_n)
+            state <= HIGH;        // Start in HIGH state after reset
+        else
+            state <= nxt_state;
 
-    // state machine logic to handle state transitions and control signals
+    // State machine logic
     always_comb begin
-        // default values for control signals
-        clr_rdy = 1'b0;
-        set_cmd_rdy = 1'b0;
-        select_high = 1'b0;
-        next_state = current_state;
-        clr_cmd_rdy_int = 1'b0;
+        // Default signal assignments
+        nxt_state = state;
+        cmd_high_rdy = 0;
+        set_cmd_rdy = 0;
+        clr_rx_rdy = 0;
 
-        // state transition cases
-        case (current_state)
-            default: begin  // high state behavior
-                if (rx_rdy) begin  // if data is ready
-                    clr_rdy = 1'b1;  // clear ready signal
-                    select_high = 1'b1;  // select high byte
-                    clr_cmd_rdy_int = 1'b1;  // clear cmd ready
-                    next_state = low;  // move to low state
+        case (state)
+            default: begin
+                if (rx_rdy) begin
+                    cmd_high_rdy = 1;   // Capture high byte
+                    clr_rx_rdy = 1;     // Clear receive ready signal
+                    nxt_state = LOW; 
                 end
             end
 
-            low: begin  // low state behavior
-                if (rx_rdy) begin  // if data is ready
-                    clr_rdy = 1'b1;  // clear ready signal
-                    set_cmd_rdy = 1'b1;  // set cmd ready
-                    next_state = high;  // move to high state
+            LOW: begin
+                if (rx_rdy) begin
+                    set_cmd_rdy = 1;    // Mark command as ready
+                    clr_rx_rdy = 1;     // Clear receive ready signal
+                    nxt_state = HIGH;   
                 end
             end
-
         endcase
     end
 
 endmodule
 
+        .clk(clk),
+        .rst_n(rst_n),
+        .RX(RX),
+        .TX(TX),
+        .rx_rdy(rx_rdy),
+        .clr_rx_rdy(clr_rx_rdy),
+        .rx_data(rx_data),
+        .trmt(trmt),
+        .tx_data(resp),
+        .tx_done(tx_done)
+    );
+
+    // Capture high byte of the command
+    always_ff @(posedge clk)
+        if (cmd_high_rdy)
+            cmd_high <= rx_data;
+
+    // Directly assign low byte of the command
+    assign cmd_low = rx_data;
+
+    // Combine high and low bytes into a 16-bit command
+    assign cmd = {cmd_high, cmd_low};
+
+    // Control command ready signal
+    always_ff @(posedge clk, negedge rst_n)
+        if (!rst_n)
+            cmd_rdy <= 1'b0;      // Reset command ready on reset
+        else if (clr_cmd_rdy)
+            cmd_rdy <= 1'b0;      // Clear command ready when requested
+        else if (set_cmd_rdy)
+            cmd_rdy <= 1'b1;      // Set command ready when command is complete
+
+    // State machine definitions
+    typedef enum logic [1:0] {
+        HIGH, LOW
+    } state_t;
+
+    state_t state, nxt_state;
+
+    // State transition logic
+    always_ff @(posedge clk, negedge rst_n)
+        if (!rst_n)
+            state <= HIGH;        // Start in HIGH state after reset
+        else
+            state <= nxt_state;
+
+    // State machine logic
+    always_comb begin
+        // Default signal assignments
+        nxt_state = state;
+        cmd_high_rdy = 0;
+        set_cmd_rdy = 0;
+        clr_rx_rdy = 0;
+
+        case (state)
+            default: begin
+                if (rx_rdy) begin
+                    cmd_high_rdy = 1;   // Capture high byte
+                    clr_rx_rdy = 1;     // Clear receive ready signal
+                    nxt_state = LOW; 
+                end
+            end
+
+            LOW: begin
+                if (rx_rdy) begin
+                    set_cmd_rdy = 1;    // Mark command as ready
+                    clr_rx_rdy = 1;     // Clear receive ready signal
+                    nxt_state = HIGH;   
+                end
+            end
+        endcase
+    end
+
+endmodule
