@@ -19,7 +19,7 @@ module UART_wrapper (clk, rst_n, RX, clr_cmd_rdy, trmt, tx_done, resp, cmd_rdy, 
         .clr_rx_rdy(clr_rdy), 
         .rx_data(rx_data), 
         .trmt(trmt), 
-        .tx_data(tx_data), 
+        .tx_data(resp), 
         .tx_done(tx_done)
     );
 
