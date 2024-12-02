@@ -1,0 +1,76 @@
+###############################
+# Read file as system verilog #
+###############################
+read_file -format sverilog { KnightsTour.sv, inert_intf.sv, IR_intf.sv, rst_synch.sv, sponge.sv, cmd_proc.sv, TourCmd.sv, PID.sv, UART_wrapper.sv, TourLogic.sv, MtrDrv.sv }
+
+##############################
+# Setting the current design #
+##############################
+set current_design KnightsTour
+
+########################
+# Setting up the clock #
+########################
+create_clock -name "clk" -period 3 -waveform {0 1} {clk}
+set_dont_touch_network [find port clk]
+
+##############################
+# Setting up the input delay #
+##############################
+set prim_inputs [remove_from_collection [all_inputs] [find port clk]]
+set_input_delay -clock clk 0.4 $prim_inputs
+
+##########################
+# Setting drive strength #
+##########################
+set_driving_cell -lib_cell NAND2X2_LVT -library saed32lvt_tt0p85v25c $prim_inputs
+set_dont_touch_network [find port rst_n]
+
+########################
+# Setting output delay #
+########################
+set_output_delay -clock clk 0.4 [all_outputs]
+
+################
+# Setting load #
+################
+set_load 0.1 [all_outputs]
+
+##########################
+# Setting max transition #
+##########################
+set_max_transition 0.15 [current_design]
+
+#############################
+# Setting clock uncertainty #
+#############################
+set_clock_uncertainty 0.15 clk
+
+###############################################################
+# Employing Synopsis 32nm wire for 16000 sq micron block size #
+###############################################################
+set_wire_load_model -name 16000 -library saed32lvt_tt0p85v25c
+
+###################################
+# Compile, flatten, and recompile #
+###################################
+compile -map_effort medium
+ungroup -all -flatten
+compile -map_effort medium
+
+###################################
+# Min max delay report #
+###################################
+report_timing -delay min
+report_timing -delay max
+
+###############
+# Area report #
+###############
+report_area > KnightsTour_area.txt
+
+
+##############################
+# Gate level verilog netlist #
+##############################
+write -format verilog KnightsTour -output KnightsTour.vg

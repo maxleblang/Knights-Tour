@@ -53,7 +53,10 @@ module UART_wrapper (clk, rst_n, RX, clr_cmd_rdy, trmt, tx_done, resp, cmd_rdy, 
 
     // store the high byte when select_high is active
     always_ff @(posedge clk or negedge rst_n) begin
-        if (select_high)  // if select_high is active
+		if (!rst_n) begin
+			storing_high <= 0;
+		end
+        else if (select_high)  // if select_high is active
             storing_high <= rx_data;  // store received data
     end
 
