@@ -1,13 +1,12 @@
 #################
 #  Knights Tour #
 ################
+
 ##############################################################
 # Read in verilog files (read children first, parents later) #
 ##############################################################
 
-
-read_file -format sverilog { ./rst_synch.sv ./PWM11.sv ./inertial_integrator.sv ./SPI_mnrch.sv ./UART_tx.sv ./UART_rx.sv ./UART.sv ./sponge.sv ./UART_wrapper.sv ./IR_intf.sv ./MtrDrv.sv ./PID.sv ./inert_intf.sv ./TourLogic.sv ./TourCmd.sv ./cmd_proc.sv ./KnightsTour.sv }
-
+read_file -format sverilog { ./KnightsTour.sv ./inert_intf.sv ./IR_intf.sv ./rst_synch.v ./sponge.sv ./cmd_proc.sv ./PID.sv ./TourCmd.sv ./UART_wrapper.sv ./TourLogic.sv ./MtrDrv.sv ./SPI_mnrch.sv ./inertial_integrator.sv ./UART_tx.sv ./UART_rx.sv ./UART.sv ./PWM11.sv }
 
 ##########################
 # Set the current design #
@@ -38,7 +37,7 @@ set_driving_cell -lib_cell NAND2X2_LVT -library saed32lvt_tt0p85v25c [copy_colle
 ############################################
 # Set and don't mess with the rst_n signal #
 ############################################
-set_dont_touch_network [find port rst_n]
+set_dont_touch_network [get_net iRST/rst_n] 
 
 ############################################
 # Set output delay and load on all outputs #
@@ -61,10 +60,18 @@ set_wire_load_model -name 16000 -library saed32lvt_tt0p85v25c
 # Synthesize for the first time #
 #################################
 compile -map_effort medium
+
+##############################################
+# Apply clock uncertainty and fix hold times #
+##############################################
+set_clock_uncertainty 0.15 clk
+set_fix_hold clk
+
 #####################
 # Flatten hierarchy #
 #####################
 ungroup -all -flatten
+
 #################
 # Compile again #
 #################
@@ -92,7 +99,3 @@ write -format verilog KnightsTour -output KnightsTour.vg
 ########################
 write_sdc KnightsTour.sdc
 
-# Notes
-# source KnightsTour.dc - Use this command to load and execute the KnightsTour.dc script in dc_shell after making edits in a text editor. 
-# KnightsTour.sdc - The SDC file defines timing and design constraints (clock period, input/output delays, transition times) 
-             # to guide synthesis and optimization tools, ensuring the design meets performance requirements.

@@ -42,7 +42,7 @@ module TourLogic(clk,rst_n,x_start,y_start,go,done,indx,move);
   // logic next_state;
   
   // << Your magic occurs here >> //
-
+  assign move = last_move[indx];
   // -- BOARD REGISTER LOGIC -- //
   
   always_ff @(posedge clk) begin
