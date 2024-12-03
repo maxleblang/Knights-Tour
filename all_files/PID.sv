@@ -39,6 +39,9 @@ module PID(clk, rst_n, moving, err_vld, error, frwrd, lft_spd, rght_spd);
     logic signed [7:0]D_diff_sat;       //saturated diff
     logic signed [9:0] q1, q2;
 
+    //Pipeline flip flops
+    logic signed [13:0] P_term_ff;
+
 
     // -- P_TERM -- //
     assign err_sat = (~error[11] & |error[10:9])? 10'h1FF: // +ve saturation
@@ -46,6 +49,9 @@ module PID(clk, rst_n, moving, err_vld, error, frwrd, lft_spd, rght_spd);
                  error[9:0];
 
     assign P_term = $signed(err_sat) * $signed(P_COEFF);
+
+    always_ff @(posedge clk)
+            P_term_ff <= P_term;
 
     // -- END P_TERM -- //
 
@@ -106,7 +112,7 @@ module PID(clk, rst_n, moving, err_vld, error, frwrd, lft_spd, rght_spd);
 
     // -- CALC PID -- //
     
-    assign P_div2 = P_term[13:1]; // Divide P_term by 2
+    assign P_div2 = P_term_ff[13:1]; // Divide P_term by 2
 
     assign P_ext = {P_div2[12], P_div2 }; 
     assign I_ext = {{5{I_term[8]}}, I_term}; 
