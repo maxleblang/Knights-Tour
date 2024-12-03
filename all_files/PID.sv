@@ -40,7 +40,7 @@ module PID(clk, rst_n, moving, err_vld, error, frwrd, lft_spd, rght_spd);
     logic signed [9:0] q1, q2;
 
     //Pipeline flip flops
-    logic signed [13:0] P_term_ff;
+    // logic signed [13:0] P_term_ff;
     logic signed [8:0] I_term_ff;
     logic signed [12:0] D_term_ff;
 
@@ -52,8 +52,8 @@ module PID(clk, rst_n, moving, err_vld, error, frwrd, lft_spd, rght_spd);
 
     assign P_term = $signed(err_sat) * $signed(P_COEFF);
 
-    always_ff @(posedge clk)
-            P_term_ff <= P_term;
+    // always_ff @(posedge clk)
+    //         P_term_ff <= P_term;
 
     // -- END P_TERM -- //
 
@@ -117,7 +117,7 @@ module PID(clk, rst_n, moving, err_vld, error, frwrd, lft_spd, rght_spd);
 
     // -- CALC PID -- //
     
-    assign P_div2 = P_term_ff[13:1]; // Divide P_term by 2
+    assign P_div2 = P_term[13:1]; // Divide P_term by 2
 
     assign P_ext = {P_div2[12], P_div2 }; 
     assign I_ext = {{5{I_term_ff[8]}}, I_term_ff}; 
