@@ -41,6 +41,8 @@ module PID(clk, rst_n, moving, err_vld, error, frwrd, lft_spd, rght_spd);
 
     //Pipeline flip flops
     logic signed [13:0] P_term_ff;
+    logic signed [8:0] I_term_ff;
+    logic signed [12:0] D_term_ff;
 
 
     // -- P_TERM -- //
@@ -73,6 +75,9 @@ module PID(clk, rst_n, moving, err_vld, error, frwrd, lft_spd, rght_spd);
         integrator <= nxt_integrator; 
 
     assign I_term = integrator[14:6]; // Extract upper bits for I_term
+
+      always_ff @(posedge clk)
+            I_term_ff <= I_term;
 
     // -- END I_TERM -- //
 
@@ -115,7 +120,7 @@ module PID(clk, rst_n, moving, err_vld, error, frwrd, lft_spd, rght_spd);
     assign P_div2 = P_term_ff[13:1]; // Divide P_term by 2
 
     assign P_ext = {P_div2[12], P_div2 }; 
-    assign I_ext = {{5{I_term[8]}}, I_term}; 
+    assign I_ext = {{5{I_term_ff[8]}}, I_term_ff}; 
     assign D_ext = {D_term[12], D_term}; 
 
     assign frwrd_ext = {1'b0,frwrd}; 
