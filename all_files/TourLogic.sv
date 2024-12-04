@@ -154,7 +154,6 @@ module TourLogic(clk,rst_n,x_start,y_start,go,done,indx,move);
     end
   end
   
-//TODO: SYNTHESIS SAYS THIS CONTAINS A LATCH
 
  //state machine logic
   always_comb begin
@@ -165,6 +164,7 @@ module TourLogic(clk,rst_n,x_start,y_start,go,done,indx,move);
     backup = 0;
     try_nxt_move = 0;
     next_state = current_state;
+    done = 0;
 
 
     case (current_state)

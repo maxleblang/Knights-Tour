@@ -45,7 +45,11 @@ module PID(clk, rst_n, moving, err_vld, error, frwrd, lft_spd, rght_spd);
                  (error[11] & ~&error[10:9])? 10'h200: // -ve saturation
                  error[9:0];
 
+                 
+
     assign P_term = $signed(err_sat) * $signed(P_COEFF);
+
+
 
     // -- END P_TERM -- //
 

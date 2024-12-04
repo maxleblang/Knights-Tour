@@ -131,8 +131,7 @@ module cmd_proc(clk, rst_n, cmd, cmd_rdy, clr_cmd_rdy, send_resp, tour_go, headi
         state <= IDLE;
     else
         state <= nxt_state;
-    
-    //TODO: SYNTHESIS SAYS THIS CONTAINS A LATCH
+ 
 
     always_comb begin
 
@@ -146,6 +145,7 @@ module cmd_proc(clk, rst_n, cmd, cmd_rdy, clr_cmd_rdy, send_resp, tour_go, headi
         tour_go = 0;
         move_cmd = 0;
         nxt_state = state;
+        moving = 0;
 
         case(state)
 
