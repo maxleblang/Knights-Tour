@@ -15,7 +15,7 @@ module TourLogic(clk,rst_n,x_start,y_start,go,done,indx,move);
   
   // << some internal registers to consider: >>
   // << These match the variables used in knightsTourSM.pl >>
-  reg [4:0] board[0:4][0:4];				// keeps track if position visited
+  reg board[0:4][0:4];				// keeps track if position visited
   reg [7:0] last_move[0:23];		    // last move tried from this spot
   reg [7:0] poss_moves[0:23];		    // stores possible moves from this position as 8-bit one hot
   reg [7:0] move_try;				        // one hot encoding of move we will try next
@@ -49,11 +49,11 @@ module TourLogic(clk,rst_n,x_start,y_start,go,done,indx,move);
     if (zero) begin
 	    board <= '{'{0,0,0,0,0},'{0,0,0,0,0},'{0,0,0,0,0},'{0,0,0,0,0},'{0,0,0,0,0}};
     end else if (init) begin
-	    board[x_start][y_start] <= 5'h1;	// mark starting position
+	    board[x_start][y_start] <= 1;	// mark starting position
     end else if (update_position) begin 
-      board[nxt_xx][nxt_yy] <= move_num + 2;	// mark as visited 
+      board[nxt_xx][nxt_yy] <= 1;	// mark as visited 
     end else if (backup)
-	    board[xx][yy] <= 5'h0;			// mark as unvisited
+	    board[xx][yy] <= 0;			// mark as unvisited
   end
 
   // -- END BOARD REGISTER LOGIC -- //
