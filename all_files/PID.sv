@@ -46,6 +46,8 @@ module PID(clk, rst_n, moving, err_vld, error, frwrd, lft_spd, rght_spd);
     logic signed [14:0] sum_ff; //used in I term
     logic signed [9:0] err_sat_ff;
     logic signed err_vld_ff;
+    logic signed [9:0] frwrd_ff;
+    logic signed moving_ff;
  
     // -- P_TERM -- //
     assign err_sat = (~error[11] & |error[10:9])? 10'h1FF: // +ve saturation
@@ -56,6 +58,8 @@ module PID(clk, rst_n, moving, err_vld, error, frwrd, lft_spd, rght_spd);
     always_ff @(posedge clk) begin
             err_sat_ff <= err_sat;
             err_vld_ff <= err_vld;
+            frwrd_ff <= frwrd;
+            moving_ff <= moving;
     end
 
 
@@ -144,7 +148,7 @@ module PID(clk, rst_n, moving, err_vld, error, frwrd, lft_spd, rght_spd);
     assign I_ext = {{5{I_term_ff[8]}}, I_term_ff}; 
     assign D_ext = {D_term_ff[12], D_term_ff}; 
 
-    assign frwrd_ext = {1'b0,frwrd}; 
+    assign frwrd_ext = {1'b0,frwrd_ff}; 
 
     assign PID = P_ext + I_ext + D_ext; // Combine P, I, and D terms
 
@@ -154,7 +158,7 @@ module PID(clk, rst_n, moving, err_vld, error, frwrd, lft_spd, rght_spd);
 
     assign lft_calc = frwrd_ext + PID[13:3]; // Add PID to frwrd speed 
 
-    assign lft_mux = moving ? lft_calc : 11'h000; // Zero speed if not moving
+    assign lft_mux = moving_ff ? lft_calc : 11'h000; // Zero speed if not moving
     assign lft_spd = (~PID[13] & lft_mux[10]) ? 11'h3FF : lft_mux; // saturate left speed 
 
     // -- END CALC LEFT SPEED -- //
@@ -163,7 +167,7 @@ module PID(clk, rst_n, moving, err_vld, error, frwrd, lft_spd, rght_spd);
 
     assign rght_calc = frwrd_ext - PID[13:3]; // Subtract PID from frwrd speed
 
-    assign rght_mux = moving ? rght_calc : 11'h000; // Zero speed if not moving
+    assign rght_mux = moving_ff ? rght_calc : 11'h000; // Zero speed if not moving
 
     assign rght_spd = (PID[13] & rght_mux[10]) ? 11'h3FF : rght_mux; // saturate right speed
 
