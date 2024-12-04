@@ -1,26 +1,28 @@
-module PWM11 (input clk, input rst_n, input [10:0] duty, output logic PWM_sig, output logic PWM_sig_n);
+module PWM11(clk, rst_n, duty, PWM_sig, PWM_sig_n);
 
-    logic [10:0] cnt;
+    input clk, rst_n;
+    input [10:0]duty;
+    output logic PWM_sig, PWM_sig_n;
 
-    // flip flop for the counter 
-    always_ff @(posedge clk or negedge rst_n) begin
-        if (!rst_n) begin
-            cnt <= 11'b0;  // reset the counter to 0
-        end else begin
-            cnt <= cnt + 11'b00000000001;  // increment the counter on positive clock edge
-        end
-    end
+    logic [10:0]cnt;
+    logic compare;
 
-    // flip flop to output PWM signals
-    always_ff @(posedge clk or negedge rst_n) begin
-        if (!rst_n) begin
-            PWM_sig <= 1'b0;    // reset PWM signal on reset
-            PWM_sig_n <= 1'b1;  // reset complementary PWM signal
-        end else begin
-            PWM_sig <= (cnt < duty);
-            PWM_sig_n <= ~PWM_sig;
-        end
-    end
+    always_ff @ (posedge clk or negedge rst_n)
+        if(!rst_n)
+            cnt <= 11'h00;
+        else
+            cnt <= cnt + 1;
 
+    assign compare = cnt < duty ? 1'b1 : 1'b0;
+
+    always_ff @(posedge clk, negedge rst_n)
+        if (!rst_n) 
+            PWM_sig <= 1'b0;
+        else 
+            PWM_sig <= compare;
+
+
+    assign PWM_sig_n = ~PWM_sig;
 
 endmodule
+        

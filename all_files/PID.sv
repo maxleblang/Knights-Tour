@@ -44,16 +44,22 @@ module PID(clk, rst_n, moving, err_vld, error, frwrd, lft_spd, rght_spd);
     logic signed [8:0] I_term_ff;
     logic signed [12:0] D_term_ff;
     logic signed [14:0] sum_ff; //used in I term
+    logic signed [9:0] err_sat_ff;
+    logic signed err_vld_ff;
  
-
-
-
     // -- P_TERM -- //
     assign err_sat = (~error[11] & |error[10:9])? 10'h1FF: // +ve saturation
                  (error[11] & ~&error[10:9])? 10'h200: // -ve saturation
                  error[9:0];
 
-    assign P_term = $signed(err_sat) * $signed(P_COEFF);
+    // Pipeline flip-flop for err_sat
+    always_ff @(posedge clk) begin
+            err_sat_ff <= err_sat;
+            err_vld_ff <= err_vld;
+    end
+
+
+    assign P_term = $signed(err_sat_ff) * $signed(P_COEFF);
 
     //pipeline flip flop for P term
      always_ff @(posedge clk)
@@ -62,7 +68,7 @@ module PID(clk, rst_n, moving, err_vld, error, frwrd, lft_spd, rght_spd);
     // -- END P_TERM -- //
 
     // -- I_TERM -- //
-    assign err_sign_ext = {{5{err_sat[9]}},err_sat}; 
+    assign err_sign_ext = {{5{err_sat_ff[9]}},err_sat_ff}; 
     assign sum = err_sign_ext + integrator; // Add error to integrator
 
     //pipeline flip flop for sum
@@ -73,7 +79,7 @@ module PID(clk, rst_n, moving, err_vld, error, frwrd, lft_spd, rght_spd);
                 (~err_sign_ext[14] & ~integrator[14] & sum_ff[14]) ? 1'b1 : // -ve overflow
                 1'b0;
 
-    assign mux1 = (~ov & err_vld) ? sum_ff : integrator; // Freeze integrator on overflow
+    assign mux1 = (~ov & err_vld_ff) ? sum_ff : integrator; // Freeze integrator on overflow
     assign nxt_integrator = moving ? mux1 : 15'h0000; 
 
     always_ff @(posedge clk, negedge rst_n)
@@ -98,25 +104,25 @@ module PID(clk, rst_n, moving, err_vld, error, frwrd, lft_spd, rght_spd);
     always_ff @(posedge clk, negedge rst_n)
         if(!rst_n)
             q1 <= 10'b0;
-        else if(err_vld)
-            q1 <= err_sat;
+        else if(err_vld_ff)
+            q1 <= err_sat_ff;
         
     //stage 2
     always_ff @(posedge clk, negedge rst_n)
         if(!rst_n)
             q2 <= 10'b0;
-        else if(err_vld)
+        else if(err_vld_ff)
             q2 <= q1;
 
     //stage 3    
     always_ff @(posedge clk, negedge rst_n)
         if(!rst_n)
             prev_err <= 10'b0;
-        else if(err_vld)
+        else if(err_vld_ff)
             prev_err <= q2; //store previous error        
 
     //Calculate difference b/w current and previous error
-    assign D_diff = err_sat - prev_err;
+    assign D_diff = err_sat_ff - prev_err;
 
     assign D_diff_sat = (~D_diff[9] & |D_diff[8:7])? 8'h7F: // +ve saturatiom
                  (D_diff[9] & ~&D_diff[8:7])? 8'h80: //-ve saturation
