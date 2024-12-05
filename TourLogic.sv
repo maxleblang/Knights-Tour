@@ -75,7 +75,7 @@ module TourLogic(clk,rst_n,x_start,y_start,go,done,indx,move);
 
   // -- END XX AND YY LOGIC -- //
 
-  // -- POSSIBLE MOVES LOGIC -- //
+  // // -- POSSIBLE MOVES LOGIC -- //
 
   // always_ff @(posedge clk) begin
   //   if(check_possible) begin
@@ -83,7 +83,7 @@ module TourLogic(clk,rst_n,x_start,y_start,go,done,indx,move);
   //   end
   // end
 
-  // -- END POSSIBLE MOVES LOGIC -- //
+  // // -- END POSSIBLE MOVES LOGIC -- //
   
 
   // -- MOVE_TRY LOGIC -- //
@@ -129,6 +129,8 @@ module TourLogic(clk,rst_n,x_start,y_start,go,done,indx,move);
   assign nxt_xx = xx + off_x(move_try);
   assign nxt_yy = yy + off_y(move_try);
   assign move_valid = (calc_poss(xx, yy) & move_try) && (board[nxt_xx][nxt_yy] == 0);
+  // assign move_valid = (poss_moves[move_num] & move_try) && (board[nxt_xx][nxt_yy] == 0);
+  
 
   // -- END ASSIGNING STUFF -- //
 

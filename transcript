@@ -13,11 +13,9 @@
 # //  18 U.S.C. Section 1905.
 # //
 # vsim . 
-# Start time: 09:37:48 on Dec 05,2024
+# Start time: 10:30:30 on Dec 05,2024
 # ** Error (suppressible): (vsim-19) Failed to access library '' at "".
 # No such file or directory. (errno = ENOENT)
 # Error loading design
-# End time: 09:37:49 on Dec 05,2024, Elapsed time: 0:00:01
+# End time: 10:30:30 on Dec 05,2024, Elapsed time: 0:00:00
 # Errors: 1, Warnings: 0
-# Loading project knightsTourTB
-# reading /cae/apps/data/mentor-2023/questasim/linux/../modelsim.ini

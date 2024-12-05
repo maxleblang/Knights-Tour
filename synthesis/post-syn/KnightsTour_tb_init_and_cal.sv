@@ -3,6 +3,7 @@ This is a simple test to make sure that the PWM and NEMO correctly set up
 First we make sure PWM and NEMO are initialized correctly
 Then we make sure that calibration is completed
 */
+`timescale 1ns/1ps
 module KnightsTour_tb();
 
   // import all tasks and functions
@@ -59,6 +60,7 @@ module KnightsTour_tb();
   initial begin
 	initialize(.clk(clk), .RST_n(RST_n), .cmd(cmd), .send_cmd(send_cmd));
 	@(posedge clk);
+	@(negedge clk);
 
 	// Make sure PWM is running and midrail
 	if(lftPWM1 ^ lftPWM2 !== 1 && rghtPWM1 ^ rghtPWM2 !== 1) begin
@@ -73,6 +75,7 @@ module KnightsTour_tb();
 	fork
       		begin : timeout
         		repeat(WAIT_CYCLES) @(posedge clk); 
+			@(negedge clk);
         		$display("ERROR: Timeout waiting for NEMO_setup");
         		$stop();                         
       		end
@@ -90,6 +93,7 @@ module KnightsTour_tb();
 	fork
         	begin : timeout_sig
             		repeat(WAIT_CYCLES) @(posedge clk);
+			@(negedge clk);
             		$display("ERROR: Timeout waiting for cal_done");
             		$stop();
         	end

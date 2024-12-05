@@ -3,6 +3,7 @@ This is a simple test to make sure that the PWM and NEMO correctly set up
 First we make sure PWM and NEMO are initialized correctly
 Then we make sure that calibration is completed
 */
+`timescale 1ns/1ps
 module KnightsTour_tb();
 
   // import all tasks and functions

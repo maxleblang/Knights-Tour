@@ -15,7 +15,7 @@ module RemoteComm(clk, rst_n, send_cmd, cmd, TX, RX, cmd_sent, resp_rdy, resp);
     logic sel_high;              // Select high byte 
     logic set_cmd_sent;           // Set command sent signal
     // Instantiate UART 
-    KnightsTour.iWrap.iUART uTest(
+    KnightsTour.iWrap.iUART(
         .clk(clk),
         .rst_n(rst_n),
         .RX(RX),
