@@ -37,7 +37,7 @@ read_file -format sverilog {../KnightsTour.sv \
     #################################################
     # Define 333MHz clock and set dont mess with it #
     #################################################
-    create_clock -name "clk" -period 3 -waveform { 0 1 } { clk }
+    create_clock -name "clk" -period 3.0 -waveform { 0 1 } { clk }
     set_dont_touch_network [find port clk]
 
     #####################################################
