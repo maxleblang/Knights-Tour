@@ -86,7 +86,7 @@ module SPI_mnrch(clk, rst_n, SS_n, SCLK, MOSI, MISO, snd, cmd, done, resp);
         default: begin //IDLE state
             if(!snd)
                 ld_SCLK = 1'b1;        
-            else if (snd) begin
+            else begin
                 init = 1'b1;          
                 nxt_state = NEXT;      
             end

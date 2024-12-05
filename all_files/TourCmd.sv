@@ -148,7 +148,7 @@ always_comb begin
         VERT_MOVE: begin
             cmd_from_uart = 0;
             move_part = VERT; // Decompose the vertical part of move
-            tour_cmd_rdy = 1;
+            tour_cmd_rdy = 1; 
             if(clr_cmd_rdy)
                 nxt_state = VERT_WAIT;
         end

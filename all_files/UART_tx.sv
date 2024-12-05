@@ -17,7 +17,7 @@ module UART_tx(clk, rst_n, TX, trmt, tx_data, tx_done);
     //shift register logic
     always_ff @(posedge clk, negedge rst_n )
     if(!rst_n) begin
-        tx_shft_reg <= 9'h1FF; //reset shift register 
+        tx_shft_reg <= 9'hFFF; //reset shift register 
     end else if (init) begin
         tx_shft_reg <= {tx_data, 1'b0}; //load data with start bit on init
     end else if (shift) begin
@@ -69,10 +69,10 @@ module UART_tx(clk, rst_n, TX, trmt, tx_data, tx_done);
 
             SHIFT: begin
 
-                if(bit_cnt != 4'd10) begin
+                if(bit_cnt != 4'd8) begin
                     transmitting = 1'b1; //Keep transmitting
                     nxt_state = SHIFT;
-                end else  begin
+                end else if (bit_cnt == 4'd8) begin
                     set_done = 1'b1; //All bits transmitted 
                     nxt_state = IDLE; 
                 end

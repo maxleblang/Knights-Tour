@@ -80,7 +80,7 @@ module UART_rx(clk, rst_n, RX, clr_rdy, rx_data, rdy);
                 if(bit_cnt <= 4'd9) begin
                     receiving = 1'b1; //Keep receiving 
                     nxt_state = RECEIVE;
-                end else begin
+                end else if (bit_cnt > 4'd9) begin
                     set_rdy = 1'b1; //All bits received
                     nxt_state = IDLE; 
                 end
