@@ -26,14 +26,6 @@ module KnightsTour_tb();
   logic [7:0] resp;
   wire IR_en;
   wire lftIR_n,rghtIR_n,cntrIR_n;
-  
-  //////////////////
-  // Task Signals //
-  /////////////////
-  logic success;
-  logic [7:0] received_resp;
-  logic error_sig;
-  logic error_pwm;
 
   //////////////////////
   // Instantiate DUT //
@@ -105,10 +97,16 @@ module KnightsTour_tb();
     	join
 	
 	// Check positive acknowledgement
-	// IDK what this is
-	repeat(100000) @(posedge clk);
+	logic error_ack;
+	CheckPositiveAck(.clk(clk), .resp_rdy(resp_rdy), .resp(resp), .error(error_ack));
+	if(error_ack) begin
+		$display("Didn't receive Ack after calibration");
+		$stop();
+	end
+
+	// All tests pass!
+	$display("YAHOO!! All tests pass!!");
 	$stop();
-	
   end
   always
     #5 clk = ~clk;

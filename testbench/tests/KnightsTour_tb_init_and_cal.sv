@@ -28,6 +28,11 @@ module KnightsTour_tb();
   wire lftIR_n,rghtIR_n,cntrIR_n;
 
   //////////////////////
+  //// Error Signals ///
+  //////////////////////
+  logic error_ack;
+
+  //////////////////////
   // Instantiate DUT //
   ////////////////////
   KnightsTour iDUT(.clk(clk), .RST_n(RST_n), .SS_n(SS_n), .SCLK(SCLK),
@@ -97,11 +102,10 @@ module KnightsTour_tb();
     	join
 	
 	// Check positive acknowledgement
-	logic error_ack;
 	CheckPositiveAck(.clk(clk), .resp_rdy(resp_rdy), .resp(resp), .error(error_ack));
 	if(error_ack) begin
 		$display("Didn't receive Ack after calibration");
-		$stop()
+		$stop();
 	end
 
 	// All tests pass!
