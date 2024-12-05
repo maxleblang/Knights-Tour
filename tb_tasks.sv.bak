@@ -72,7 +72,7 @@ package tb_tasks;
 
   task automatic CheckPositiveAck(
    ref reg clk,
-   ref logic [7:0] resp,
+   ref logic resp,
    ref logic resp_rdy,
    output logic error
   );
