@@ -63,7 +63,7 @@ logic [3:0] num_moves; // How many squares we move
 
 always_comb begin
 
-	heading = 8'h00;
+    heading = 8'h00;
     num_moves = 4'h0;
     play_sponge = 0;
 
