@@ -51,7 +51,9 @@ assign cmd = cmd_from_uart ? cmd_UART : tour_cmd;
 assign cmd_rdy = cmd_from_uart ? cmd_rdy_UART : tour_cmd_rdy;
 
 // UART response logic
-assign resp = (mv_indx < 23) && !cmd_from_uart ? 8'h5A : (mv_indx == 23) && cmd_from_uart ? 8'hA5 : 8'h00;
+// When commands are coming from UART, positive acknowledge is 0xA5
+// When commands are coming from logic, move acknowlegde is 0x5A
+assign resp = cmd_from_uart ? 8'hA5 : 8'h5A;
 
 // Move decomposition logic
 move_part_t move_part; // Whether we're decomposing the vertical or horizontal component of the move
@@ -139,7 +141,6 @@ always_comb begin
 
     case (state)
         IDLE: begin
-            cmd_from_uart = 1;
             if(start_tour) begin
                 zero_mv_indx = 1;
                 nxt_state = VERT_MOVE;

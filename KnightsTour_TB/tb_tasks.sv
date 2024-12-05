@@ -2,7 +2,6 @@ package tb_tasks;
 
   // local parameters for task configuration
   localparam WAIT_CYCLES = 1000000;       // Number of cycles to hold reset
-  localparam FAST_SIM = 1;               // Enable fast simulation mode (currently unused)
   localparam RESP_TRMT = 8'h5A;
   localparam RESP_DONE = 8'hA5;
 
@@ -17,52 +16,18 @@ package tb_tasks;
     ref reg [15:0] cmd
   );
     begin
-      // Only initialize reg/logic types
-      clk = 0;                       
-      RST_n = 0;                     
-      send_cmd = 0;    
-      cmd = 16'h0000;                            
-      // Wait and deassert reset
-      repeat(10) @(posedge clk);     
-      @(negedge clk);             
-      RST_n = 1;
-      repeat(100) @(negedge clk);   
+	// Default all signals
+      	clk = 0;
+	cmd = 0;
+	send_cmd = 0;
+	// Reset DUT
+	RST_n = 0;
+	@(posedge clk);
+	@(negedge clk); RST_n = 1;   
     end
   endtask
+  
 
-  // Make sure PWM’s running at midrail values just after reset
-  task automatic CheckPWMInit(
-   ref reg clk,
-   output logic error_pwm
-  );
-   
-   fork
-       begin : timeout
-           repeat(WAIT_CYCLES) @(posedge clk);
-           error_pwm = 1;
-           $display("ERROR: PWMs not running or not at midrail");
-           disable check_pwm;
-       end
-       
-       begin : check_pwm
-           // Check initial values
-           @(posedge clk);
-           if (iDUT.lft_spd !== 11'h000 || iDUT.rght_spd !== 11'h000) begin
-               $display("ERROR: Speeds not at midrail");
-               error_pwm = 1;
-               disable timeout;
-           end
-           
-           // Monitor PWM transitions 
-           repeat(1000) @(posedge clk);
-           if (iDUT.lftPWM1 ^ iDUT.lftPWM2 && iDUT.rghtPWM1 ^ iDUT.rghtPWM2) begin
-               $display("PWMs running at midrail");
-               error_pwm = 0;
-               disable timeout;
-           end
-       end
-   join
-  endtask
 
   ////////////////////
   // Stimulus Tasks //
@@ -71,22 +36,24 @@ package tb_tasks;
   task automatic SendCMD(
     ref reg clk,
     ref reg RST_n,
+    input [15:0] input_cmd,
     ref reg [15:0] cmd,
     ref reg send_cmd,
-	ref reg cmd_sent
+    ref reg cmd_sent
   );
     begin
 
         // Send the command
-        repeat (10) @(posedge clk);
+	cmd = input_cmd;
+        @(posedge clk);
         send_cmd = 1;
 
         // Deassert send_cmd
-        repeat (10) @(posedge clk);
+        @(posedge clk);
         send_cmd = 0;
         
         // Wait for cmd_sent (from BLE module)
-		fork
+	fork
             begin : cmd_timeout_1
                 repeat(WAIT_CYCLES) @(posedge clk);
                 $error("%t: Timeout waiting for cmd_sent assertion", $time);
@@ -100,11 +67,13 @@ package tb_tasks;
             end
         join
 
-		end
+     end
   endtask
 
   task automatic CheckPositiveAck(
    ref reg clk,
+   ref logic resp,
+   ref logic resp_rdy,
    output logic error
   );
    fork
@@ -116,9 +85,9 @@ package tb_tasks;
        end
        
        begin : wait_ack
-           @(posedge iDUT.resp_sent);
-           if (iDUT.resp !== RESP_TRMT) begin
-               $display("ERROR: Expected ack 0xA5, got %h", iDUT.resp);
+           @(posedge resp_rdy);
+           if (resp !== RESP_TRMT) begin
+               $display("ERROR: Expected ack 0xA5, got %h", resp);
                error = 1;
            end else begin
                $display("Received positive ack");
@@ -128,6 +97,7 @@ package tb_tasks;
        end
    join
   endtask
+
   /*
   task automatic WaitSig(
     ref reg clk,
