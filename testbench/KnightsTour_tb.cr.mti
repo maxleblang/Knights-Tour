@@ -147,11 +147,12 @@ QuestaSim vlog 2023.2_1 Compiler 2023.05 May 12 2023
 Top level modules:
 	IR_intf
 
-} {} {}} /filespace/m/mleblang/ECE551/Knights-Tour/testbench/tests/KnightsTour_tb_init_and_cal.sv {0 {vlog -work work -vopt -sv -stats=none /filespace/m/mleblang/ECE551/Knights-Tour/testbench/tests/KnightsTour_tb_init_and_cal.sv
+} {} {}} /filespace/m/mleblang/ECE551/Knights-Tour/testbench/tests/KnightsTour_tb_init_and_cal.sv {1 {vlog -work work -vopt -sv -stats=none /filespace/m/mleblang/ECE551/Knights-Tour/testbench/tests/KnightsTour_tb_init_and_cal.sv
 QuestaSim vlog 2023.2_1 Compiler 2023.05 May 12 2023
 -- Compiling module KnightsTour_tb
 -- Importing package tb_tasks
-** Error: /filespace/m/mleblang/ECE551/Knights-Tour/testbench/tests/KnightsTour_tb_init_and_cal.sv(105): The actual (resp) and formal (resp) for a ref must be equivalent types.
 
+Top level modules:
+	KnightsTour_tb
 
-} {5.0 6.0} {}}
+} {} {}}

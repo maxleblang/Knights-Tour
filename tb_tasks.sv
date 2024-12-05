@@ -2,8 +2,8 @@ package tb_tasks;
 
   // local parameters for task configuration
   localparam WAIT_CYCLES = 1000000;       // Number of cycles to hold reset
-  localparam RESP_TRMT = 8'h5A;
-  localparam RESP_DONE = 8'hA5;
+  localparam UART_POS_ACK = 8'hA5;
+  localparam MOVE_POS_ACK = 8'h5A;
 
   //////////////////////////
   // Initialization Tasks //
@@ -86,7 +86,7 @@ package tb_tasks;
        
        begin : wait_ack
            @(posedge resp_rdy);
-           if (resp !== RESP_TRMT) begin
+           if (resp !== UART_POS_ACK) begin
                $display("ERROR: Expected ack 0xA5, got %h", resp);
                error = 1;
            end else begin
