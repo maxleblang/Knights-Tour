@@ -135,8 +135,8 @@ package tb_tasks;
 
     task automatic CheckHeading(
     ref reg clk,
-    ref logic signed [11:0] heading,
-    ref logic signed [11:0] desired_heading,
+    input logic signed [11:0] heading,
+    input logic signed [11:0] desired_heading,
     output logic error_move
     );
 
@@ -153,8 +153,7 @@ package tb_tasks;
         
         
         begin : wait_block_move
-           if(((desired_heading - heading) < 12'h02c) ||
-            ((heading - desired_heading) < 12'h02c)) begin   
+           if($unsigned(desired_heading) - $unsigned(heading) < 12'h02c) begin   
                 //TODO: It's going less than 02c but it's still not passing? desired_heading - heading = 026
                 error_move = 0;
                 $display("HEADING CHECK: Heading dropped below threshold -> heading %h, desired heading %h ", heading, desired_heading);
@@ -176,25 +175,21 @@ package tb_tasks;
     ref logic cntrIR,
     output logic error_IR
     );
-    begin
-
-    begin : timeout_IR
+    fork
+    	begin : timeout_IR
             repeat(WAIT_CYCLES) @(posedge clk);
             error_IR = 1;
             $display("ERROR: Timeout waiting IR signal");
             $stop();
-            disable wait_block_IR;
         end
         
         begin : wait_block_IR
-            wait(~cntrIR);
-            error_IR = 0;
-            $display("IR CHECK: Received IR signal");
-            disable timeout_IR;
-            
+	    // TODO: Make this an input variable
+            repeat(2) @(posedge cntrIR);
+	    $display("IR CHECK: Received cntrIR signals");
+	    disable timeout_IR;
         end
-    end
-    
+    join
     endtask
 
 

@@ -113,13 +113,6 @@ QuestaSim vlog 2023.2_1 Compiler 2023.05 May 12 2023
 Top level modules:
 	UART_wrapper
 
-} {} {}} /filespace/m/mleblang/ECE551/Knights-Tour/testbench/aayushi/tb_tasks.sv {1 {vlog -work work -vopt -sv -stats=none /filespace/m/mleblang/ECE551/Knights-Tour/testbench/aayushi/tb_tasks.sv
-QuestaSim vlog 2023.2_1 Compiler 2023.05 May 12 2023
--- Compiling package tb_tasks
-
-Top level modules:
-	--none--
-
 } {} {}} /filespace/m/mleblang/ECE551/Knights-Tour/UART_rx.sv {1 {vlog -work work -vopt -sv -stats=none /filespace/m/mleblang/ECE551/Knights-Tour/UART_rx.sv
 QuestaSim vlog 2023.2_1 Compiler 2023.05 May 12 2023
 -- Compiling module UART_rx
@@ -169,6 +162,14 @@ QuestaSim vlog 2023.2_1 Compiler 2023.05 May 12 2023
 
 Top level modules:
 	IR_intf
+
+} {} {}} /filespace/m/mleblang/ECE551/Knights-Tour/testbench/aayushi/KnightsTour_tb_aayushi.sv {1 {vlog -work work -vopt -sv -stats=none /filespace/m/mleblang/ECE551/Knights-Tour/testbench/aayushi/KnightsTour_tb_aayushi.sv
+QuestaSim vlog 2023.2_1 Compiler 2023.05 May 12 2023
+-- Compiling module KnightsTour_tb_yushi
+-- Importing package tb_tasks
+
+Top level modules:
+	KnightsTour_tb_yushi
 
 } {} {}} /filespace/m/mleblang/ECE551/Knights-Tour/testbench/tests/KnightsTour_tb_init_and_cal.sv {1 {vlog -work work -vopt -sv -stats=none /filespace/m/mleblang/ECE551/Knights-Tour/testbench/tests/KnightsTour_tb_init_and_cal.sv
 QuestaSim vlog 2023.2_1 Compiler 2023.05 May 12 2023

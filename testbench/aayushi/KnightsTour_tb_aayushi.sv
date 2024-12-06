@@ -153,35 +153,36 @@ module KnightsTour_tb_yushi();
 		.input_cmd(16'h4BF1),  //East heading is BF
 		.cmd(cmd), 
 		.send_cmd(send_cmd), 
-		.cmd_sent(cmd_sent));
+		.cmd_sent(cmd_sent)
+	);
 
 	WaitSig(
 		.clk(clk),
    		.signal_name("heading_rdy"),
-    	.signal_to_wait(iDUT.heading_rdy),
-    	.error_sig(error_sig));
-
-	//TODO: Not sure where to check heading
-	// CheckHeading(
-	// 	.clk(clk),
-	// 	.heading(iDUT.heading),
-    // 	.error_move(error_move));
-
-	CheckIR(
+    		.signal_to_wait(iDUT.heading_rdy),
+    		.error_sig(error_sig)
+	);
+	
+	// Make sure we're at the write heading when we start moving forward
+	wait(iDUT.iCMD.frwrd == 10'h300);
+	CheckHeading(
 		.clk(clk),
-		.cntrIR(cntrIR_n),
-    	.error_IR(error_IR));
-
-	CheckIR(
-		.clk(clk),
-		.cntrIR(cntrIR_n),
-    	.error_IR(error_IR));
-
+		.heading(iDUT.iCMD.heading),
+		.desired_heading(12'hbff),
+		.error_move(error_move)	
+	);
+	
+	// Make sure we fire two cntrIRs when moving
+	CheckIR(.clk(clk), .cntrIR(iDUT.cntrIR), .error_IR(error_IR));
+	
+	wait(iDUT.iCMD.frwrd == 10'h000);
+	// Make sure we acknowledge after moving a square
 	CheckPositiveAck(
 		.clk(clk), 
 		.resp_rdy(resp_rdy), 
 		.resp(resp), 
-		.error(error_ack));
+		.error(error_ack)
+	);
 
 	if(error_sig || error_move || error_IR || error_ack) begin
 		$display("ERROR #6: Unable to move East");
