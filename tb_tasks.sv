@@ -5,40 +5,48 @@ package tb_tasks;
   localparam UART_POS_ACK = 8'hA5;
   localparam MOVE_POS_ACK = 8'h5A;
 
-  //////////////////////////
-  // Initialization Tasks //
-  //////////////////////////
+   // local parameters for movement and logic testing
+   localparam ONE_SQUARE = 15'he80;
+    localparam TWO_SQUARES = 15'h1d00;
+    localparam START_XX = 15'h2800;
+    localparam START_YY = 15'h2800;
+    localparam signed POSITION_THRESHOLD = 15'h0350;
 
-  task automatic initialize(
-    ref reg clk,              
-    ref reg RST_n,
-    ref reg send_cmd,
-    ref reg [15:0] cmd
-  );
+    // -- INITIALIZE -- //
+
+    task automatic initialize(
+    	ref reg clk,              
+    	ref reg RST_n,
+    	ref reg send_cmd,
+    	ref reg [15:0] cmd
+    );
+
     begin
 	// Default all signals
-      	clk = 0;
+    clk = 0;
 	cmd = 0;
 	send_cmd = 0;
 	// Reset DUT
 	RST_n = 0;
 	@(posedge clk);
-	@(negedge clk); RST_n = 1;   
+	@(negedge clk); 
+    RST_n = 1;   
+
     end
-  endtask
+    endtask
 
-  ////////////////////
-  // Stimulus Tasks //
-  ////////////////////
 
-  task automatic SendCMD(
+    // -- SEND COMMAND -- //
+    
+    task automatic SendCMD(
     ref reg clk,
     ref reg RST_n,
     input [15:0] input_cmd,
     ref reg [15:0] cmd,
     ref reg send_cmd,
     ref reg cmd_sent
-  );
+    );
+
     begin
 
         // Send the command
@@ -50,31 +58,35 @@ package tb_tasks;
         @(posedge clk);
         send_cmd = 0;
         
-        // Wait for cmd_sent (from BLE module)
+   
 	fork
             begin : cmd_timeout_1
                 repeat(WAIT_CYCLES) @(posedge clk);
-                $error("%t: Timeout waiting for cmd_sent assertion", $time);
+                $error("ERROR: %t Timeout waiting for cmd_sent assertion", $time);
                 $stop;
             end
             
             begin 
                 @(posedge cmd_sent);
                 disable cmd_timeout_1;
-                $display("Command %h has been sent!", cmd);
+                $display("CMD CHECK: Command %h has been sent!", cmd);
             end
         join
 
      end
-  endtask
 
-  task automatic CheckPositiveAck(
-   ref reg clk,
-   ref logic [7:0] resp,
-   ref logic resp_rdy,
-   output logic error
-  );
-   fork
+    endtask
+ 
+    // -- CHECK FOR POSITIVE ACK -- //
+
+    task automatic CheckPositiveAck(
+        ref reg clk,
+        ref logic [7:0] resp,
+        ref logic resp_rdy,
+        output logic error
+    );
+    
+    fork
        begin : timeout
            repeat(WAIT_CYCLES) @(posedge clk);
            $display("ERROR: No response received");
@@ -88,21 +100,25 @@ package tb_tasks;
                $display("ERROR: Expected ack 0xA5, got %h", resp);
                error = 1;
            end else begin
-               $display("Received positive ack");
+               $display("ACK CHECK: Received positive ack");
                error = 0;
            end
            disable timeout;
        end
-   join
-  endtask
+    join
 
-  /*
-  task automatic WaitSig(
+    endtask
+
+    // -- WAIT FOR SIGNAL -- //
+  
+    task automatic WaitSig(
     ref reg clk,
+    ref logic signal_to_wait,
     input string signal_name,
-    input logic signal_to_wait,
     output logic error_sig
-);
+    );
+
+    
     fork
         begin : timeout_sig
             repeat(WAIT_CYCLES) @(posedge clk);
@@ -113,90 +129,116 @@ package tb_tasks;
         end
         
         begin : wait_block
-            @(posedge signal_to_wait);
+            wait(signal_to_wait);
             error_sig = 0;
-            $display("%s detected at time %t", signal_name, $time);
+            $display("SIG CHECK: %s detected", signal_name);
             disable timeout_sig;
         end
     join
-endtask
-*/
-  
-  
-  /*
-  task automatic MovementWest(
+    
+    endtask
+
+    // -- CHECK HEADING AFTER MOVE -- //
+
+    task automatic CheckHeading(
     ref reg clk,
-    ref logic cntrIR_n,
-    output logic error_prev,
-    output logic error_duty,
-    output logic error_omega,
-    ref virtual KnightPhysics iPHYS,    // Add interface reference
-    ref virtual Knight_tb iDUT          // Add interface reference
-  );
-    // Declare all variables at the beginning of the block
-    logic [10:0] prev_rght_duty, prev_lft_duty;
-    logic signed [11:0] prev_error;
-    logic [10:0] right_change, left_change;
+    input logic signed [11:0] heading,
+    input logic signed [11:0] desired_heading,
+    output logic error_move
+    );
 
     begin
-        // Initialize outputs
-        error_duty = 0;
-        error_omega = 0;
-        error_prev = 0;
-        
-        // Store initial values
-        prev_rght_duty = iPHYS.duty_rght;
-        prev_lft_duty = iPHYS.duty_lft;
-        prev_error = iDUT.error;
-
-        // Check error and wheel duties change
-        repeatWAIT_CYCLESS) @(posedge clk);
-        
-        // Check error changed
-        if (iDUT.error === prev_error) begin
-            error_prev = 1;
-            $display("ERROR: Error signal not changing");
+    
+    fork
+        begin : timeout_move
+            repeat(10000000) @(posedge clk);
+            error_move = 1;
+            $display("ERROR: Timeout -> heading %h, desired heading %h; %d", heading, desired_heading, (desired_heading - heading));
             $stop();
+            disable wait_block_move;
+        end
+        
+        
+        begin : wait_block_move
+           if($unsigned(desired_heading) - $unsigned(heading) < 12'h02c) begin   
+                //TODO: It's going less than 02c but it's still not passing? desired_heading - heading = 026
+                error_move = 0;
+                $display("HEADING CHECK: Heading dropped below threshold -> heading %h, desired heading %h ", heading, desired_heading);
+                disable timeout_move;
+                
+            end
         end
 
-        // Check right duty increases more than left for west turn
-        // Get the amount each duty changed
-        right_change = iPHYS.duty_rght - prev_rght_duty;
-        left_change = iPHYS.duty_lft - prev_lft_duty;
-        
-        if (right_change <= left_change) begin
-            error_duty = 1;
-            $display("ERROR: Right duty should increase more than left for west turn");
-            $stop();
-        end
+    join
 
-        // Monitor heading convergence and cntrIR_n
-        fork 
-            begin : timeout
-                repeatWAIT_CYCLESS) @(posedge clk);
-                $display("ERROR: Movement did not complete in time");
-                $stop();
-            end
-            begin
-                // Wait for first cntrIR_n pulse (leaving square)
-                @(negedge cntrIR_n);
-                $display("Leaving current square detected");
-                
-                // Wait for second cntrIR_n pulse (entering new square)
-                @(negedge cntrIR_n);
-                $display("Entering new square detected");
-                
-                // Check omega_sum is ramping up (using correct threshold from KnightPhysics)
-                if(iPHYS.omega_sum < 17'd22000) begin
-                    error_omega = 1;
-                    $display("ERROR: omega_sum not ramping up as expected");
-                    $stop();
-                end
-                disable timeout;
-            end
-        join
     end
-  endtask
-  */
+
+    endtask
+
+    // -- CHECK IR SIGNAL -- //
+
+    task automatic CheckIR(
+    ref reg clk,
+    ref logic cntrIR,
+    output logic error_IR
+    );
+    fork
+    	begin : timeout_IR
+            repeat(WAIT_CYCLES) @(posedge clk);
+            error_IR = 1;
+            $display("ERROR: Timeout waiting IR signal");
+            $stop();
+        end
+        
+        begin : wait_block_IR
+	    // TODO: Make this an input variable
+            repeat(2) @(posedge cntrIR);
+	    $display("IR CHECK: Received cntrIR signals");
+	    disable timeout_IR;
+        end
+    join
+    endtask
+
+
+task automatic Check_Position(
+	input logic [14:0] pos,
+	input logic [14:0] expected_pos
+);
+begin
+	if($signed(expected_pos) - $signed(pos) > POSITION_THRESHOLD || $signed(pos) - $signed(expected_pos) > POSITION_THRESHOLD) begin
+		$display("ERROR POSITION CHECK: position of %h not within threshold compared to %h", pos, expected_pos);
+		$display("%h", $signed(expected_pos) - $signed(pos));
+		$display("%h", $signed(pos) - $signed(expected_pos));
+		$exit();
+	end
+end
+endtask
+
+task automatic CheckPositiveMoveAck(
+        ref reg clk,
+        ref logic [7:0] resp,
+        ref logic resp_rdy
+    );
+    
+    fork
+       begin : timeout
+           repeat(WAIT_CYCLES) @(posedge clk);
+           $display("ERROR: No response received");
+	   $stop();
+       end
+       
+       begin : wait_ack
+           @(posedge resp_rdy);
+           if (resp !== MOVE_POS_ACK) begin
+               $display("ERROR: Expected ack 0x5A, got %h", resp);
+		$stop();
+           end else begin
+               $display("ACK CHECK: Received positive ack");
+           end
+           disable timeout;
+       end
+    join
+
+endtask
 
 endpackage
