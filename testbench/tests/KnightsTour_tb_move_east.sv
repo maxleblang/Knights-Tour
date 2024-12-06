@@ -118,6 +118,101 @@ module KnightsTour_tb_chance();
   // Check that xx is now in the range of 0x3680
   // Check that yy hasn't changed (or changed very little)
 
+  // Checking xx and yy for moving 1 square EAST
+  fork
+   begin
+       prev_yy = iPHYS.yy;             // Store initial y position
+       repeat(1000000) begin
+           // Check xx is in correct range
+           if ((iPHYS.xx >= 12'h3680 - 12'h0050) && (iDUT.xx <= 12'h3680 + 12'h0050)) begin
+               $display("xx coordinate in correct range around 0x3680");
+           end else begin
+               $display("Error: xx coordinate not within +/-0x50 of 0x3680");
+               $stop();
+           end
+           
+           // Check yy hasn't changed significantly 
+           if ((iPHYS.yy >= 12'h2800 - 12'h0050) && (iDUT.yy <= 12'h2800 + 12'h0050)) begin
+               $display("yy coordinate remained stable within +/-0x50");
+           end else begin
+               $display("Error: yy coordinate changed by more than +/-0x50");
+               $stop();
+           end
+
+           @(posedge clk);
+       end
+   end
+ join
+
+ // checking xx yy after moving 2 squares north
+ // Check position 2: xx = 0x3680, yy = 0x0800             
+
+fork
+    begin
+        repeat(1000000) begin
+            if ((iPHYS.xx >= 12'h3680 - 12'h0050) && (iPHYS.xx <= 12'h3680 + 12'h0050)) begin
+                $display("xx coordinate in correct range around 0x3680");
+            end else begin
+                $display("Error: xx coordinate not within +/-0x50 of 0x3680");
+                $stop();
+            end
+            
+            if ((iPHYS.yy >= 12'h0800 - 12'h0050) && (iPHYS.yy <= 12'h0800 + 12'h0050)) begin
+                $display("yy coordinate in correct range around 0x1040");
+            end else begin
+                $display("Error: yy coordinate not within +/-0x50 of 0x1040");
+                $stop();
+            end
+            @(posedge clk);
+        end
+    end
+join
+
+// Check position 3: xx = 0x1040, yy = 0x1040
+fork
+    begin
+        repeat(1000000) begin
+            if ((iPHYS.xx >= 12'h0800 - 12'h0050) && (iPHYS.xx <= 12'h0800 + 12'h0050)) begin
+                $display("xx coordinate in correct range around 0x1040");
+            end else begin
+                $display("Error: xx coordinate not within +/-0x50 of 0x1040");
+                $stop();
+            end
+            
+            if ((iPHYS.yy >= 12'h0800 - 12'h0050) && (iPHYS.yy <= 12'h0800 + 12'h0050)) begin
+                $display("yy coordinate in correct range around 0x1040");
+            end else begin
+                $display("Error: yy coordinate not within +/-0x50 of 0x1040");
+                $stop();
+            end
+            @(posedge clk);
+        end
+    end
+  join
+
+// Check position 4: xx = 0x1040, yy = 0x4860
+  fork
+    begin
+        repeat(1000000) begin
+            if ((iPHYS.xx >= 12'h0800 - 12'h0050) && (iPHYS.xx <= 12'h0800 + 12'h0050)) begin
+                $display("xx coordinate in correct range around 0x1040");
+            end else begin
+                $display("Error: xx coordinate not within +/-0x50 of 0x1040");
+                $stop();
+            end
+            
+            if ((iPHYS.yy >= 12'h4800 - 12'h0050) && (iPHYS.yy <= 12'h4800 + 12'h0050)) begin
+                $display("yy coordinate in correct range around 0x4860");
+            end else begin
+                $display("Error: yy coordinate not within +/-0x50 of 0x4860");
+                $stop();
+            end
+            @(posedge clk);
+        end
+    end
+  join
+
+
 
   // All tests pass!
   $display("YAHOO!! All tests pass!!");
