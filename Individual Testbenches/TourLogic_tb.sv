@@ -8,7 +8,7 @@ module TourLogic_tb();
   //////////////////////
   // Instantiate DUT //
   ////////////////////
-  TourLogic iDUT(.clk(clk),.rst_n(rst_n),.x_start(3'h0),.y_start(3'h0),
+  TourLogic iDUT(.clk(clk),.rst_n(rst_n),.x_start(3'h2),.y_start(3'h2),
                  .go(go),.done(done),.indx(5'h00),.move());
 
   initial begin
@@ -55,7 +55,6 @@ module TourLogic_tb();
 	    $display("%2d  %2d  %2d  %2d  %2d\n",iDUT.board[0][y],iDUT.board[1][y],
 		         iDUT.board[2][y],iDUT.board[3][y],iDUT.board[4][y]);
 	end
-	$display("poss moves: %b\n", iDUT.poss_moves[iDUT.move_num-1]);
 	$display("move try: %b\n", iDUT.move_try);
 	$display("--------------------\n");
   end

@@ -1,8 +1,50 @@
 m255
 K4
 z2
-Z0 !s12c _opt2
+Z0 !s12c _opt
 Z1 !s99 nomlopt
+R0
+R1
+R0
+R1
+R0
+R1
+R0
+R1
+R0
+R1
+R0
+R1
+R0
+R1
+R0
+R1
+R0
+R1
+R0
+R1
+R0
+R1
+R0
+R1
+R0
+R1
+R0
+R1
+R0
+R1
+R0
+R1
+R0
+R1
+R0
+R1
+R0
+R1
+R0
+R1
+R0
+R1
 R0
 R1
 R0
@@ -21,9 +63,15 @@ R0
 R1
 Z2 !s12c _opt1
 R1
+R0
+R1
+R0
+R1
 R2
 R1
-Z3 !s12c _opt
+R0
+R1
+Z3 !s12c _opt2
 R1
 R3
 R1
@@ -34,6 +82,28 @@ R1
 R3
 R1
 R3
+R1
+R3
+R1
+R3
+R1
+R3
+R1
+R2
+R1
+R2
+R1
+R0
+R1
+R0
+R1
+R0
+R1
+R0
+R1
+R0
+R1
+R0
 R1
 !s11f vlog 2023.2_1 2023.05, May 12 2023
 13
@@ -44,10 +114,10 @@ R1
 cModel Technology
 Z4 d/filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/testbench
 T_opt
-!s110 1733416614
-VJ`O3XdTWXz;:X1H4NbO3o2
-04 14 4 work KnightsTour_tb fast 0
-=7-000ae431a4f1-6751d6a6-99c73-13e3de
+!s110 1733523051
+V4<nNMXmC:C]:Mjof1m?R<1
+04 18 4 work KnightsTour_tb_max fast 0
+=19-000ae431a4f1-6753766b-76bce-3b7bca
 R1
 Z5 !s12b OEM100
 Z6 !s124 OEM100
@@ -55,12 +125,11 @@ Z7 o-quiet -auto_acc_if_foreign -work work +acc
 Z8 tCvgOpt 0
 n@_opt
 Z9 OE;O;2023.2_1;77
-R4
 T_opt1
-!s110 1733504280
-V9Fma?CD9dlFIj@60iKPmb2
-04 19 4 work KnightsTour_tb_main fast 0
-=2-000ae431a4f1-67532d18-a5cc0-38f69b
+!s110 1733512807
+V3hQ@;MX1ZzXAUld7ZbOY73
+04 12 4 work TourLogic_tb fast 0
+=1-000ae431a4f1-67534e67-d0aa-3a5de6
 R1
 R5
 R6
@@ -81,10 +150,11 @@ R7
 R8
 n@_opt2
 R9
+R4
 vcmd_proc
 2/filespace/m/mleblang/ECE551/Knights-Tour/cmd_proc.sv
 Z10 DXx6 sv_std 3 std 0 22 9oUSJO;AeEaW`l:M@^WG92
-Z11 !s110 1733507724
+Z11 !s110 1733523005
 !i10b 1
 !s100 JEJ<;mdPK9_Pl?cA2>WJS0
 I5Bdnglz:o^W7;UeB0el8P0
@@ -93,14 +163,14 @@ Z12 d/filespace/m/mleblang/ECE551/Knights-Tour/testbench
 Z13 w1733503480
 8/filespace/m/mleblang/ECE551/Knights-Tour/cmd_proc.sv
 F/filespace/m/mleblang/ECE551/Knights-Tour/cmd_proc.sv
-!i122 961
+!i122 2453
 L0 1 214
 Z14 VDg1SIo80bB@j0V0VzS_@n1
 Z15 OE;L;2023.2_1;77
 r1
 !s85 0
 31
-Z16 !s108 1733507724.000000
+Z16 !s108 1733523005.000000
 !s107 /filespace/m/mleblang/ECE551/Knights-Tour/cmd_proc.sv|
 !s90 -reportprogress|300|-work|work|-vopt|-sv|-stats=none|/filespace/m/mleblang/ECE551/Knights-Tour/cmd_proc.sv|
 !i113 0
@@ -118,7 +188,7 @@ R12
 Z18 w1733413819
 8/filespace/m/mleblang/ECE551/Knights-Tour/inert_intf.sv
 F/filespace/m/mleblang/ECE551/Knights-Tour/inert_intf.sv
-!i122 962
+!i122 2454
 L0 7 151
 R14
 R15
@@ -143,7 +213,7 @@ R12
 R18
 8/filespace/m/mleblang/ECE551/Knights-Tour/inertial_integrator.sv
 F/filespace/m/mleblang/ECE551/Knights-Tour/inertial_integrator.sv
-!i122 963
+!i122 2455
 L0 1 204
 R14
 R15
@@ -168,7 +238,7 @@ R12
 R18
 Z20 8/filespace/m/mleblang/ECE551/Knights-Tour/KnightPhysics.sv
 Z21 F/filespace/m/mleblang/ECE551/Knights-Tour/KnightPhysics.sv
-!i122 965
+!i122 2457
 L0 262 49
 R14
 R15
@@ -194,7 +264,7 @@ R12
 R18
 Z25 8/filespace/m/mleblang/ECE551/Knights-Tour/IR_intf.sv
 Z26 F/filespace/m/mleblang/ECE551/Knights-Tour/IR_intf.sv
-!i122 964
+!i122 2456
 L0 1 120
 R14
 R15
@@ -220,7 +290,7 @@ R12
 R18
 R20
 R21
-!i122 965
+!i122 2457
 L0 1 257
 R14
 R15
@@ -246,7 +316,7 @@ R12
 R13
 8/filespace/m/mleblang/ECE551/Knights-Tour/KnightsTour.sv
 F/filespace/m/mleblang/ECE551/Knights-Tour/KnightsTour.sv
-!i122 966
+!i122 2458
 L0 1 116
 R14
 R15
@@ -261,29 +331,28 @@ R17
 R8
 n@knights@tour
 vKnightsTour_tb
-2/filespace/m/mleblang/ECE551/Knights-Tour/testbench/tests/KnightsTour_tb_logic.sv
+2/filespace/m/mleblang/ECE551/Knights-Tour/testbench/tests/KnightsTour_tb_init_and_cal.sv
 R10
-Z29 DXx4 work 8 tb_tasks 0 22 mCD=GWaQO[5P;GIHm96zi2
-DXx4 work 12 max_tb_tasks 0 22 X8<kR@H5_fg_NlNAAelP:1
-Z30 !s110 1733507725
+Z29 DXx4 work 8 tb_tasks 0 22 7>A<@P5ZH52`KH0UFgSOP3
+Z30 !s110 1733523006
 !i10b 1
-!s100 J_6:Uh4kS<5lk<o<omM5k3
-Io^]BhGGfMCn2]G4LA8e9S2
+!s100 JD27[P0oSWnjco@4FL4;>3
+Ih;]E7[36>iAY3?Vm[fS[Q0
 S1
 R12
-w1733416602
-8/filespace/m/mleblang/ECE551/Knights-Tour/testbench/tests/KnightsTour_tb_logic.sv
-F/filespace/m/mleblang/ECE551/Knights-Tour/testbench/tests/KnightsTour_tb_logic.sv
-!i122 984
-L0 4 86
+w1733414098
+8/filespace/m/mleblang/ECE551/Knights-Tour/testbench/tests/KnightsTour_tb_init_and_cal.sv
+F/filespace/m/mleblang/ECE551/Knights-Tour/testbench/tests/KnightsTour_tb_init_and_cal.sv
+!i122 2474
+L0 6 113
 R14
 R15
 r1
 !s85 0
 31
-Z31 !s108 1733507725.000000
-!s107 /filespace/m/mleblang/ECE551/Knights-Tour/testbench/tests/KnightsTour_tb_logic.sv|
-!s90 -reportprogress|300|-work|work|-vopt|-sv|-stats=none|/filespace/m/mleblang/ECE551/Knights-Tour/testbench/tests/KnightsTour_tb_logic.sv|
+Z31 !s108 1733523006.000000
+!s107 /filespace/m/mleblang/ECE551/Knights-Tour/testbench/tests/KnightsTour_tb_init_and_cal.sv|
+!s90 -reportprogress|300|-work|work|-vopt|-sv|-stats=none|/filespace/m/mleblang/ECE551/Knights-Tour/testbench/tests/KnightsTour_tb_init_and_cal.sv|
 !i113 0
 R17
 R8
@@ -315,6 +384,34 @@ Z36 !s90 -reportprogress|300|-work|work|-vopt|-sv|-stats=none|/filespace/m/mlebl
 R17
 R8
 n@knights@tour_tb_main
+vKnightsTour_tb_max
+2/filespace/m/mleblang/ECE551/Knights-Tour/testbench/tests/KnightsTour_tb_logic.sv
+R10
+R29
+DXx4 work 12 max_tb_tasks 0 22 _?zEBbSf9LAHJ>?6PISLa2
+R30
+!i10b 1
+!s100 ;]``ITDTh0[4CJV`8EiUI2
+I0=2zS5XEeiTDVjRGH^zoF0
+S1
+R12
+w1733521522
+8/filespace/m/mleblang/ECE551/Knights-Tour/testbench/tests/KnightsTour_tb_logic.sv
+F/filespace/m/mleblang/ECE551/Knights-Tour/testbench/tests/KnightsTour_tb_logic.sv
+!i122 2476
+L0 4 235
+R14
+R15
+r1
+!s85 0
+31
+R31
+!s107 /filespace/m/mleblang/ECE551/Knights-Tour/testbench/tests/KnightsTour_tb_logic.sv|
+!s90 -reportprogress|300|-work|work|-vopt|-sv|-stats=none|/filespace/m/mleblang/ECE551/Knights-Tour/testbench/tests/KnightsTour_tb_logic.sv|
+!i113 0
+R17
+R8
+n@knights@tour_tb_max
 vKnightsTour_tb_yushi
 R32
 R10
@@ -328,7 +425,7 @@ R12
 w1733507603
 R33
 R34
-!i122 985
+!i122 2477
 L0 2 257
 R14
 R15
@@ -347,16 +444,16 @@ Xmax_tb_tasks
 R10
 R30
 !i10b 1
-!s100 <c];KkI83[IbBY@]V21ET2
-IX8<kR@H5_fg_NlNAAelP:1
+!s100 JHSLUW68oi`K>TB>L]oG<2
+I_?zEBbSf9LAHJ>?6PISLa2
 S1
 R12
-w1733415545
+w1733520879
 8/filespace/m/mleblang/ECE551/Knights-Tour/max_tb_tasks.sv
 F/filespace/m/mleblang/ECE551/Knights-Tour/max_tb_tasks.sv
-!i122 983
+!i122 2475
 Z37 L0 1 0
-VX8<kR@H5_fg_NlNAAelP:1
+V_?zEBbSf9LAHJ>?6PISLa2
 R15
 r1
 !s85 0
@@ -379,7 +476,7 @@ R12
 R18
 8/filespace/m/mleblang/ECE551/Knights-Tour/MtrDrv.sv
 F/filespace/m/mleblang/ECE551/Knights-Tour/MtrDrv.sv
-!i122 967
+!i122 2459
 L0 1 19
 R14
 R15
@@ -405,7 +502,7 @@ R12
 R18
 8/filespace/m/mleblang/ECE551/Knights-Tour/PB_release.sv
 F/filespace/m/mleblang/ECE551/Knights-Tour/PB_release.sv
-!i122 968
+!i122 2460
 L0 1 23
 R14
 R15
@@ -422,7 +519,7 @@ n@p@b_release
 vPID
 2/filespace/m/mleblang/ECE551/Knights-Tour/PID.sv
 R10
-R30
+R11
 !i10b 1
 !s100 <jHmkILjEj<eVF7H^_bi42
 IzJI<`Hn_]<cW?W?god0W21
@@ -431,7 +528,7 @@ R12
 R13
 8/filespace/m/mleblang/ECE551/Knights-Tour/PID.sv
 F/filespace/m/mleblang/ECE551/Knights-Tour/PID.sv
-!i122 969
+!i122 2461
 L0 1 139
 R14
 R15
@@ -457,7 +554,7 @@ R12
 R18
 8/filespace/m/mleblang/ECE551/Knights-Tour/PWM11.sv
 F/filespace/m/mleblang/ECE551/Knights-Tour/PWM11.sv
-!i122 970
+!i122 2462
 L0 1 27
 R14
 R15
@@ -483,7 +580,7 @@ R12
 R18
 R25
 R26
-!i122 964
+!i122 2456
 L0 126 36
 R14
 R15
@@ -509,7 +606,7 @@ R12
 R13
 8/filespace/m/mleblang/ECE551/Knights-Tour/RemoteComm.sv
 F/filespace/m/mleblang/ECE551/Knights-Tour/RemoteComm.sv
-!i122 971
+!i122 2463
 L0 1 82
 R14
 R15
@@ -533,7 +630,7 @@ R12
 R18
 8/filespace/m/mleblang/ECE551/Knights-Tour/rst_synch.v
 F/filespace/m/mleblang/ECE551/Knights-Tour/rst_synch.v
-!i122 972
+!i122 2464
 L0 1 18
 R14
 R15
@@ -558,7 +655,7 @@ R12
 R18
 8/filespace/m/mleblang/ECE551/Knights-Tour/SPI_iNEMO4.sv
 F/filespace/m/mleblang/ECE551/Knights-Tour/SPI_iNEMO4.sv
-!i122 973
+!i122 2465
 L0 1 196
 R14
 R15
@@ -584,7 +681,7 @@ R12
 R13
 8/filespace/m/mleblang/ECE551/Knights-Tour/SPI_mnrch.sv
 F/filespace/m/mleblang/ECE551/Knights-Tour/SPI_mnrch.sv
-!i122 974
+!i122 2466
 L0 1 117
 R14
 R15
@@ -610,7 +707,7 @@ R12
 R18
 8/filespace/m/mleblang/ECE551/Knights-Tour/sponge.sv
 F/filespace/m/mleblang/ECE551/Knights-Tour/sponge.sv
-!i122 975
+!i122 2467
 L0 2 169
 R14
 R15
@@ -632,10 +729,10 @@ R30
 I7>A<@P5ZH52`KH0UFgSOP3
 S1
 R12
-w1733507721
+w1733515410
 8/filespace/m/mleblang/ECE551/Knights-Tour/testbench/aayushi/tb_tasks.sv
 F/filespace/m/mleblang/ECE551/Knights-Tour/testbench/aayushi/tb_tasks.sv
-!i122 986
+!i122 2478
 R37
 V7>A<@P5ZH52`KH0UFgSOP3
 R15
@@ -653,14 +750,14 @@ vTourCmd
 R10
 R30
 !i10b 1
-!s100 >@hS3MNoG1aJm<jT?95?J0
-I>NMWlWcEnz5WoEOanNg=@3
+!s100 A?3cKD5Vzd[j=R9f[[<Xl2
+I4@90V7DS<eC4`6XlM?XF;0
 S1
 R12
-w1733416721
+w1733512218
 8/filespace/m/mleblang/ECE551/Knights-Tour/TourCmd.sv
 F/filespace/m/mleblang/ECE551/Knights-Tour/TourCmd.sv
-!i122 976
+!i122 2468
 L0 1 183
 R14
 R15
@@ -674,6 +771,32 @@ R31
 R17
 R8
 n@tour@cmd
+vTourCmd_tb
+2/filespace/m/mleblang/ECE551/Knights-Tour/Individual Testbenches/TourCmd_tb.sv
+R10
+R30
+!i10b 1
+!s100 ;C4bHQ2:ozdeMY4B5@0RK1
+Imk2NhGD6o<U4Dhh4n2c8z1
+S1
+R12
+R18
+8/filespace/m/mleblang/ECE551/Knights-Tour/Individual Testbenches/TourCmd_tb.sv
+F/filespace/m/mleblang/ECE551/Knights-Tour/Individual Testbenches/TourCmd_tb.sv
+!i122 2479
+L0 1 156
+R14
+R15
+r1
+!s85 0
+31
+R31
+!s107 /filespace/m/mleblang/ECE551/Knights-Tour/Individual Testbenches/TourCmd_tb.sv|
+!s90 -reportprogress|300|-work|work|-vopt|-sv|-stats=none|/filespace/m/mleblang/ECE551/Knights-Tour/Individual Testbenches/TourCmd_tb.sv|
+!i113 0
+R17
+R8
+n@tour@cmd_tb
 vTourLogic
 2/filespace/m/mleblang/ECE551/Knights-Tour/TourLogic.sv
 R10
@@ -686,7 +809,7 @@ R12
 R13
 8/filespace/m/mleblang/ECE551/Knights-Tour/TourLogic.sv
 F/filespace/m/mleblang/ECE551/Knights-Tour/TourLogic.sv
-!i122 977
+!i122 2469
 L0 1 277
 R14
 R15
@@ -700,6 +823,32 @@ R31
 R17
 R8
 n@tour@logic
+vTourLogic_tb
+2/filespace/m/mleblang/ECE551/Knights-Tour/Individual Testbenches/TourLogic_tb.sv
+R10
+R30
+!i10b 1
+!s100 VJ?=;[KeN^WR0ca0>La[32
+I7L=XPjEV1onS;CRYi5=>43
+S1
+R12
+w1733512698
+8/filespace/m/mleblang/ECE551/Knights-Tour/Individual Testbenches/TourLogic_tb.sv
+F/filespace/m/mleblang/ECE551/Knights-Tour/Individual Testbenches/TourLogic_tb.sv
+!i122 2480
+L0 1 62
+R14
+R15
+r1
+!s85 0
+31
+R31
+!s107 /filespace/m/mleblang/ECE551/Knights-Tour/Individual Testbenches/TourLogic_tb.sv|
+!s90 -reportprogress|300|-work|work|-vopt|-sv|-stats=none|/filespace/m/mleblang/ECE551/Knights-Tour/Individual Testbenches/TourLogic_tb.sv|
+!i113 0
+R17
+R8
+n@tour@logic_tb
 vUART
 2/filespace/m/mleblang/ECE551/Knights-Tour/UART.sv
 R10
@@ -712,7 +861,7 @@ R12
 R18
 8/filespace/m/mleblang/ECE551/Knights-Tour/UART.sv
 F/filespace/m/mleblang/ECE551/Knights-Tour/UART.sv
-!i122 978
+!i122 2470
 L0 1 24
 R14
 R15
@@ -738,7 +887,7 @@ R12
 R18
 8/filespace/m/mleblang/ECE551/Knights-Tour/UART_rx.sv
 F/filespace/m/mleblang/ECE551/Knights-Tour/UART_rx.sv
-!i122 979
+!i122 2471
 L0 1 108
 R14
 R15
@@ -764,7 +913,7 @@ R12
 R18
 8/filespace/m/mleblang/ECE551/Knights-Tour/UART_tx.sv
 F/filespace/m/mleblang/ECE551/Knights-Tour/UART_tx.sv
-!i122 980
+!i122 2472
 L0 1 103
 R14
 R15
@@ -790,7 +939,7 @@ R12
 R18
 8/filespace/m/mleblang/ECE551/Knights-Tour/UART_wrapper.sv
 F/filespace/m/mleblang/ECE551/Knights-Tour/UART_wrapper.sv
-!i122 981
+!i122 2473
 L0 1 96
 R14
 R15

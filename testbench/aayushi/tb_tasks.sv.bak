@@ -185,8 +185,7 @@ package tb_tasks;
         
         begin : wait_block_IR
 	    // TODO: Make this an input variable
-            @(posedge cntrIR);
-	    @(posedge cntrIR);
+            repeat(2) @(posedge cntrIR);
 	    $display("IR CHECK: Received cntrIR signals");
 	    disable timeout_IR;
         end

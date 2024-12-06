@@ -8,10 +8,10 @@ package tb_tasks;
     // -- INITIALIZE -- //
 
     task automatic initialize(
-    ref reg clk,              
-    ref reg RST_n,
-    ref reg send_cmd,
-    ref reg [15:0] cmd
+    	ref reg clk,              
+    	ref reg RST_n,
+    	ref reg send_cmd,
+    	ref reg [15:0] cmd
     );
 
     begin

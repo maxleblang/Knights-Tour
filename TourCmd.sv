@@ -77,12 +77,12 @@ always_comb begin
             else if((move == 8'b00000100) || (move == 8'b10000000)) begin // Moves 2 and 7
                 heading = 8'h00;
                 num_moves = 4'h1;
-                play_sponge = 1;
+                play_sponge = 0;
             end
             else if((move == 8'b00001000) || (move == 8'b01000000)) begin // Moves 3 and 6
                 heading = 8'h7F;
                 num_moves = 4'h1;
-                play_sponge = 1;
+                play_sponge = 0;
             end
             else if((move == 8'b00010000) || (move == 8'b00100000)) begin // Moves 4 and 5
                 heading = 8'h7F;
@@ -99,7 +99,7 @@ always_comb begin
             else if((move == 8'b00000100) || (move == 8'b00001000)) begin // Moves 2 and 3
                 heading = 8'h3F;
                 num_moves = 4'h2;
-                play_sponge = 0;
+                play_sponge = 1;
             end
             else if((move == 8'b00000001) || (move == 8'b00100000)) begin // Moves 0 and 5
                 heading = 8'hBF;
@@ -109,7 +109,7 @@ always_comb begin
             else if((move == 8'b10000000) || (move == 8'b01000000)) begin // Moves 7 and 6
                 heading = 8'hBF;
                 num_moves = 4'h2;
-                play_sponge = 0;
+                play_sponge = 1;
             end
         end
     endcase

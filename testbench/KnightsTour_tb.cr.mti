@@ -5,15 +5,6 @@ QuestaSim vlog 2023.2_1 Compiler 2023.05 May 12 2023
 Top level modules:
 	PID
 
-} {} {}} /filespace/m/mleblang/ECE551/Knights-Tour/testbench/tests/KnightsTour_tb_logic.sv {1 {vlog -work work -vopt -sv -stats=none /filespace/m/mleblang/ECE551/Knights-Tour/testbench/tests/KnightsTour_tb_logic.sv
-QuestaSim vlog 2023.2_1 Compiler 2023.05 May 12 2023
--- Compiling module KnightsTour_tb
--- Importing package tb_tasks
--- Importing package max_tb_tasks
-
-Top level modules:
-	KnightsTour_tb
-
 } {} {}} /filespace/m/mleblang/ECE551/Knights-Tour/TourCmd.sv {1 {vlog -work work -vopt -sv -stats=none /filespace/m/mleblang/ECE551/Knights-Tour/TourCmd.sv
 QuestaSim vlog 2023.2_1 Compiler 2023.05 May 12 2023
 -- Compiling module TourCmd
@@ -42,6 +33,13 @@ QuestaSim vlog 2023.2_1 Compiler 2023.05 May 12 2023
 Top level modules:
 	MtrDrv
 
+} {} {}} /filespace/m/mleblang/ECE551/Knights-Tour/max_tb_tasks.sv {1 {vlog -work work -vopt -sv -stats=none /filespace/m/mleblang/ECE551/Knights-Tour/max_tb_tasks.sv
+QuestaSim vlog 2023.2_1 Compiler 2023.05 May 12 2023
+-- Compiling package max_tb_tasks
+
+Top level modules:
+	--none--
+
 } {} {}} /filespace/m/mleblang/ECE551/Knights-Tour/TourLogic.sv {1 {vlog -work work -vopt -sv -stats=none /filespace/m/mleblang/ECE551/Knights-Tour/TourLogic.sv
 QuestaSim vlog 2023.2_1 Compiler 2023.05 May 12 2023
 -- Compiling module TourLogic
@@ -55,13 +53,6 @@ QuestaSim vlog 2023.2_1 Compiler 2023.05 May 12 2023
 
 Top level modules:
 	RemoteComm
-
-} {} {}} /filespace/m/mleblang/ECE551/Knights-Tour/max_tb_tasks.sv {1 {vlog -work work -vopt -sv -stats=none /filespace/m/mleblang/ECE551/Knights-Tour/max_tb_tasks.sv
-QuestaSim vlog 2023.2_1 Compiler 2023.05 May 12 2023
--- Compiling package max_tb_tasks
-
-Top level modules:
-	--none--
 
 } {} {}} /filespace/m/mleblang/ECE551/Knights-Tour/KnightPhysics.sv {1 {vlog -work work -vopt -sv -stats=none /filespace/m/mleblang/ECE551/Knights-Tour/KnightPhysics.sv
 QuestaSim vlog 2023.2_1 Compiler 2023.05 May 12 2023
@@ -92,6 +83,13 @@ QuestaSim vlog 2023.2_1 Compiler 2023.05 May 12 2023
 Top level modules:
 	PB_release
 
+} {} {}} {/filespace/m/mleblang/ECE551/Knights-Tour/Individual Testbenches/TourCmd_tb.sv} {1 {vlog -work work -vopt -sv -stats=none {/filespace/m/mleblang/ECE551/Knights-Tour/Individual Testbenches/TourCmd_tb.sv}
+QuestaSim vlog 2023.2_1 Compiler 2023.05 May 12 2023
+-- Compiling module TourCmd_tb
+
+Top level modules:
+	TourCmd_tb
+
 } {} {}} /filespace/m/mleblang/ECE551/Knights-Tour/sponge.sv {1 {vlog -work work -vopt -sv -stats=none /filespace/m/mleblang/ECE551/Knights-Tour/sponge.sv
 QuestaSim vlog 2023.2_1 Compiler 2023.05 May 12 2023
 -- Compiling module sponge
@@ -112,6 +110,20 @@ QuestaSim vlog 2023.2_1 Compiler 2023.05 May 12 2023
 
 Top level modules:
 	UART_wrapper
+
+} {} {}} /filespace/m/mleblang/ECE551/Knights-Tour/testbench/aayushi/tb_tasks.sv {1 {vlog -work work -vopt -sv -stats=none /filespace/m/mleblang/ECE551/Knights-Tour/testbench/aayushi/tb_tasks.sv
+QuestaSim vlog 2023.2_1 Compiler 2023.05 May 12 2023
+-- Compiling package tb_tasks
+
+Top level modules:
+	--none--
+
+} {} {}} {/filespace/m/mleblang/ECE551/Knights-Tour/Individual Testbenches/TourLogic_tb.sv} {1 {vlog -work work -vopt -sv -stats=none {/filespace/m/mleblang/ECE551/Knights-Tour/Individual Testbenches/TourLogic_tb.sv}
+QuestaSim vlog 2023.2_1 Compiler 2023.05 May 12 2023
+-- Compiling module TourLogic_tb
+
+Top level modules:
+	TourLogic_tb
 
 } {} {}} /filespace/m/mleblang/ECE551/Knights-Tour/UART_rx.sv {1 {vlog -work work -vopt -sv -stats=none /filespace/m/mleblang/ECE551/Knights-Tour/UART_rx.sv
 QuestaSim vlog 2023.2_1 Compiler 2023.05 May 12 2023

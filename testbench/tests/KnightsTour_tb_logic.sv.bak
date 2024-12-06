@@ -1,7 +1,7 @@
 /*
 This tests that the knight is moving correctly in response to the tour logic
 */
-module KnightsTour_tb();
+module KnightsTour_tb_max();
 
   // import all tasks and functions
   import tb_tasks::*;
@@ -75,10 +75,159 @@ module KnightsTour_tb();
 	TEST LOGIC
 	*/
 	// Tell DUT to start the command
-	SendCMD(.clk(clk), .RST_n(RST_n), .input_cmd(16'h2000), .cmd(cmd), .send_cmd(send_cmd), .cmd_sent(cmd_sent));
-	repeat(20000000) @(posedge clk);
+	// Starting from the center of the board
+	SendCMD(.clk(clk), .RST_n(RST_n), .input_cmd(16'h6022), .cmd(cmd), .send_cmd(send_cmd), .cmd_sent(cmd_sent));
+	wait(iDUT.iTC.start_tour);
+	repeat(100) @(posedge clk);
 
-		
+	/*
+	CMD 1: move 0
+	North 2
+	Right 1
+	*/
+	// VERT
+	wait(iDUT.iCMD.send_resp);
+	// Check the cmd is right
+	if(iDUT.iTC.cmd !== 16'h4002) begin
+		$display("ERROR CMD: Expected %h but was %h.", 16'h4002, iDUT.iTC.cmd);
+		$stop();
+	end
+	// Check that we're at the right position
+	Check_Position(.pos(iPHYS.yy), .expected_pos(START_YY + TWO_SQUARES));
+	repeat(100) @(posedge clk);
+
+	// HOR
+	wait(iDUT.iCMD.send_resp);
+	// Check the cmd is right
+	if(iDUT.iTC.cmd !== 16'h5bf1) begin
+		$display("ERROR CMD: Expected %h but was %h.", 16'h5bf1, iDUT.iTC.cmd);
+		$stop();
+	end
+	Check_Position(.pos(iPHYS.xx), .expected_pos(START_XX + ONE_SQUARE));
+	
+	// Check for move ack
+	CheckPositiveMoveAck(.clk(clk), .resp(iRMT.resp), .resp_rdy(iRMT.resp_rdy));
+	$display("MOVE 1 VERIFIED");
+	
+	/*
+	CMD 2: move 3
+	South 1
+	Left 2
+	*/
+	// VERT
+	wait(iDUT.iCMD.send_resp);
+	// Check the cmd is right
+	if(iDUT.iTC.cmd !== 16'h47f1) begin
+		$display("ERROR CMD: Expected %h but was %h.", 16'h47f1, iDUT.iTC.cmd);
+		$stop();
+	end
+	// Check that we're at the right position
+	Check_Position(.pos(iPHYS.yy), .expected_pos(START_YY + ONE_SQUARE));
+	repeat(100) @(posedge clk);
+
+	// HOR
+	wait(iDUT.iCMD.send_resp);
+	// Check the cmd is right
+	if(iDUT.iTC.cmd !== 16'h53f2) begin
+		$display("ERROR CMD: Expected %h but was %h.", 16'h53f2, iDUT.iTC.cmd);
+		$stop();
+	end
+	Check_Position(.pos(iPHYS.xx), .expected_pos(START_XX - ONE_SQUARE));
+	
+	// Check for move ack
+	CheckPositiveMoveAck(.clk(clk), .resp(iRMT.resp), .resp_rdy(iRMT.resp_rdy));
+	$display("MOVE 2 VERIFIED");
+
+	/*
+	CMD 3: move 4
+	South 2
+	Left 1
+	*/
+	// VERT
+	wait(iDUT.iCMD.send_resp);
+	// Check the cmd is right
+	if(iDUT.iTC.cmd !== 16'h47f2) begin
+		$display("ERROR CMD: Expected %h but was %h.", 16'h47f2, iDUT.iTC.cmd);
+		$stop();
+	end
+	// Check that we're at the right position
+	Check_Position(.pos(iPHYS.yy), .expected_pos(START_YY - ONE_SQUARE));
+	repeat(100) @(posedge clk);
+
+	// HOR
+	wait(iDUT.iCMD.send_resp);
+	// Check the cmd is right
+	if(iDUT.iTC.cmd !== 16'h53f1) begin
+		$display("ERROR CMD: Expected %h but was %h.", 16'h53f1, iDUT.iTC.cmd);
+		$stop();
+	end
+	Check_Position(.pos(iPHYS.xx), .expected_pos(START_XX - TWO_SQUARES));
+	
+	// Check for move ack
+	CheckPositiveMoveAck(.clk(clk), .resp(iRMT.resp), .resp_rdy(iRMT.resp_rdy));
+	$display("MOVE 3 VERIFIED");
+
+
+	/*
+	CMD 4: move 4
+	South 2
+	Left 1
+	*/
+	// VERT
+	wait(iDUT.iCMD.send_resp);
+	// Check the cmd is right
+	if(iDUT.iTC.cmd !== 16'h47f1) begin
+		$display("ERROR CMD: Expected %h but was %h.", 16'h47f1, iDUT.iTC.cmd);
+		$stop();
+	end
+	// Check that we're at the right position
+	Check_Position(.pos(iPHYS.yy), .expected_pos(START_YY - TWO_SQUARES));
+	repeat(100) @(posedge clk);
+
+	// HOR
+	wait(iDUT.iCMD.send_resp);
+	// Check the cmd is right
+	if(iDUT.iTC.cmd !== 16'h5bf2) begin
+		$display("ERROR CMD: Expected %h but was %h.", 16'h5bf1, iDUT.iTC.cmd);
+		$stop();
+	end
+	Check_Position(.pos(iPHYS.xx), .expected_pos(START_XX));
+	
+	// Check for move ack
+	CheckPositiveMoveAck(.clk(clk), .resp(iRMT.resp), .resp_rdy(iRMT.resp_rdy));
+	$display("MOVE 4 VERIFIED");
+
+
+	/*
+	CMD 5: move 7
+	North 1
+	Right 2
+	*/
+	// VERT
+	wait(iDUT.iCMD.send_resp);
+	// Check the cmd is right
+	if(iDUT.iTC.cmd !== 16'h4001) begin
+		$display("ERROR CMD: Expected %h but was %h.", 16'h4001, iDUT.iTC.cmd);
+		$stop();
+	end
+	// Check that we're at the right position
+	Check_Position(.pos(iPHYS.yy), .expected_pos(START_YY - ONE_SQUARE));
+	repeat(100) @(posedge clk);
+
+	// HOR
+	wait(iDUT.iCMD.send_resp);
+	// Check the cmd is right
+	if(iDUT.iTC.cmd !== 16'h5bf2) begin
+		$display("ERROR CMD: Expected %h but was %h.", 16'h5bf1, iDUT.iTC.cmd);
+		$stop();
+	end
+	Check_Position(.pos(iPHYS.xx), .expected_pos(START_XX + TWO_SQUARES));
+	
+	// Check for move ack
+	CheckPositiveMoveAck(.clk(clk), .resp(iRMT.resp), .resp_rdy(iRMT.resp_rdy));
+	$display("MOVE 4 VERIFIED");
+
+	
 	// All tests pass!
 	$display("YAHOO!! All tests pass!!");
 	$stop();
