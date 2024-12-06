@@ -96,7 +96,7 @@ module KnightsTour_tb_yushi();
       		begin
         		@(posedge iPHYS.iNEMO.NEMO_setup);  
         		disable timeout;                   
-        		$display("PASSED: NEMO_setup detected!"); 
+        		$display("PASSED [1]: NEMO_setup detected!"); 
       		end
     	join
 
@@ -124,7 +124,7 @@ module KnightsTour_tb_yushi();
         
         begin 
             @(posedge iDUT.cal_done);
-            $display("PASSED: cal_done detected!");
+            $display("PASSED [2]: cal_done detected!");
             disable timeout_sig;
         end
 
@@ -173,9 +173,9 @@ module KnightsTour_tb_yushi();
 	);
 	
 	// Make sure we fire two cntrIRs when moving
-	CheckIR(.clk(clk), .cntrIR(iDUT.cntrIR), .error_IR(error_IR));
+	CheckIR(.clk(clk), .IR(iDUT.cntrIR), .pos("cntrIR"), .count(2), .error_IR(error_IR));
 	
-	wait(iDUT.iCMD.frwrd == 10'h000);
+	wait(iDUT.iCMD.frwrd_zero);
 	// Make sure we acknowledge after moving a square
 	CheckPositiveAck(
 		.clk(clk), 
@@ -188,7 +188,7 @@ module KnightsTour_tb_yushi();
 		$display("ERROR #6: Unable to move East");
 		$stop();
 	end else begin
-		$display("PASSED: Moved East 1 square.");
+		$display("PASSED [3]: Moved East 1 square.");
 	end
 	 
 	// -- END (3) -- //
@@ -206,36 +206,136 @@ module KnightsTour_tb_yushi();
 		.send_cmd(send_cmd), 
 		.cmd_sent(cmd_sent));
 
+
+	wait(iDUT.iCMD.frwrd == 10'h300);
+	// wait(iDUT.iCMD.frwrd_zero);
+
 	fork
 
 	begin
-		CheckIR( .clk(clk), .cntrIR(cntrIR_n), .error_IR(error_IR_1));
-		CheckIR( .clk(clk), .cntrIR(cntrIR_n), .error_IR(error_IR_2));
-		CheckIR( .clk(clk), .cntrIR(cntrIR_n), .error_IR(error_IR_3));
-		CheckIR( .clk(clk), .cntrIR(cntrIR_n), .error_IR(error_IR_4));
-
+		CheckIR( .clk(clk), .IR(cntrIR_n), .pos("cntrIR"), .count(4), .error_IR(error_IR));
 	end
 
 	begin
-		CheckIR( .clk(clk), .cntrIR(lftIR_n), .error_IR(error_IR_l));
+		CheckIR( .clk(clk), .IR(lftIR_n), .pos("lftIR"), .count(1), .error_IR(error_IR_l));
 	end
 
 	begin
-		CheckIR( .clk(clk), .cntrIR(rghtIR_n), .error_IR(error_IR_r));
+		CheckIR( .clk(clk), .IR(rghtIR_n), .pos("rghtIR"), .count(1), .error_IR(error_IR_r));
 	end
 
 	join
 
-	if(error_IR_1 & error_IR_2 & error_IR_3 & error_IR_4) begin
-		$display("PASSED: Moved North 2 Squares");
-		if (error_IR_l || error_IR_r)
-		$display("PASSED: lftIR and rghtIR fired.");
+	wait(iDUT.iCMD.frwrd_zero);
+	// Make sure we acknowledge after moving a square
+
+	CheckPositiveAck(
+		.clk(clk), 
+		.resp_rdy(resp_rdy), 
+		.resp(resp), 
+		.error(error_ack)
+	);
+
+	if(!error_IR) begin
+		$display("PASSED [4]: Moved North 2 Squares");
+		if (!(error_IR_l & error_IR_r))
+		$display("NUDGE CHECK: lftIR or rghtIR fired.");
 	end else begin
 		$display("ERROR #7: IR signals not working right.");
 		$stop();
 	end
 
 	// -- END (4) -- //
+
+	
+	// -- 5. MOVE WEST 3 SQUARES -- //
+
+	repeat(150000) @(posedge clk);
+
+	SendCMD(
+		.clk(clk), 
+		.RST_n(RST_n), 
+		.input_cmd(16'h43F3),  
+		.cmd(cmd), 
+		.send_cmd(send_cmd), 
+		.cmd_sent(cmd_sent));
+
+	wait(iDUT.iCMD.frwrd == 10'h300);
+
+	CheckIR(.clk(clk), .IR(cntrIR_n), .pos("cntrIR"), .count(6), .error_IR(error_IR));
+
+	wait(iDUT.iCMD.frwrd_zero);
+	// Make sure we acknowledge after moving a square
+
+	CheckPositiveAck(
+		.clk(clk), 
+		.resp_rdy(resp_rdy), 
+		.resp(resp), 
+		.error(error_ack)
+	);
+
+	if(!error_IR) 
+		$display("PASSED [5]: Moved West 3 Squares");
+	else 
+		$display("ERROR #8: Failed to move West 3 Squares");
+
+
+	// -- END (5) -- //
+
+
+	// -- 6. MOVE SOUTH 4 SQUARES -- //
+
+	repeat(150000) @(posedge clk);
+
+	SendCMD(
+		.clk(clk), 
+		.RST_n(RST_n), 
+		.input_cmd(16'h57F4),  
+		.cmd(cmd), 
+		.send_cmd(send_cmd), 
+		.cmd_sent(cmd_sent));
+
+	wait(iDUT.iCMD.frwrd == 10'h300);
+
+	fork 
+
+	CheckIR(.clk(clk), .IR(cntrIR_n), .pos("cntrIR"), .count(8), .error_IR(error_IR));
+
+	fork
+		begin : timeout_fanfare
+           	repeat(50000000) @(posedge clk);
+           	$display("ERROR #9: Should Play fanfare");
+			$stop();
+           	disable wait_fanfare;
+       	end
+       
+       begin : wait_fanfare
+           	@(posedge iDUT.fanfare_go);
+            $display("FANFARE CHECK: Played Song");
+           	disable timeout_fanfare;
+       end
+	join
+
+	join
+
+	wait(iDUT.iCMD.frwrd_zero);
+	
+	CheckPositiveAck(
+		.clk(clk), 
+		.resp_rdy(resp_rdy), 
+		.resp(resp), 
+		.error(error_ack)
+	);	
+
+
+	if(!error_IR) 
+		$display("PASSED [6]: Moved South 4 Squares");
+	else 
+		$display("ERROR #10: Failed to move South 4 Squares");
+
+
+	// -- END (6) -- //
+
 
 
 	// -- 5. TEST TOUR LOGIC? -- //

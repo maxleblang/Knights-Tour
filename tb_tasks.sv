@@ -179,24 +179,36 @@ package tb_tasks;
 
     task automatic CheckIR(
     ref reg clk,
-    ref logic cntrIR,
+    ref logic IR,
+    input string pos,
+    input integer count,
     output logic error_IR
     );
+
+    if (pos == "cntrIR") begin
     fork
     	begin : timeout_IR
-            repeat(WAIT_CYCLES) @(posedge clk);
+            repeat(50000000) @(posedge clk);
             error_IR = 1;
-            $display("ERROR: Timeout waiting IR signal");
+            $display("ERROR: Timeout waiting for cntrIR signal");
             $stop();
         end
         
         begin : wait_block_IR
-	    // TODO: Make this an input variable
-            repeat(2) @(posedge cntrIR);
-	    $display("IR CHECK: Received cntrIR signals");
+        repeat(count) @(posedge IR);
+        error_IR = 0;
+	    $display("IR CHECK: Received %0d cntrIR signals", count);
 	    disable timeout_IR;
         end
     join
+    end else begin
+        error_IR = 1;
+        repeat(count) @(posedge IR);
+	    $display("IR CHECK: Received left/right IR signals");
+        error_IR = 0;
+	    disable timeout_IR;
+
+    end
     endtask
 
 
