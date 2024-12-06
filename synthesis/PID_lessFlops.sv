@@ -39,11 +39,20 @@ module PID(clk, rst_n, moving, err_vld, error, frwrd, lft_spd, rght_spd);
     logic signed [7:0]D_diff_sat;       //saturated diff
     logic signed [9:0] q1, q2;
 
+    logic signed [9:0] err_sat_ff;
+    logic signed err_vld_ff;
+    logic signed [13:0] PID_ff;
+
 
     // -- P_TERM -- //
     assign err_sat = (~error[11] & |error[10:9])? 10'h1FF: // +ve saturation
                  (error[11] & ~&error[10:9])? 10'h200: // -ve saturation
                  error[9:0];
+
+     // Pipeline flip-flop for err_sat
+    always_ff @(posedge clk) begin
+        err_sat_ff <= err_sat;
+    end
 
     assign P_term = $signed(err_sat) * $signed(P_COEFF);
 
@@ -56,6 +65,10 @@ module PID(clk, rst_n, moving, err_vld, error, frwrd, lft_spd, rght_spd);
     assign ov = (err_sign_ext[14] & integrator[14] & ~sum[14])? 1'b1 : // +ve overflow
                 (~err_sign_ext[14] & ~integrator[14] & sum[14]) ? 1'b1 : // -ve overflow
                 1'b0;
+
+    always_ff @(posedge clk) begin
+        err_vld_ff <= err_vld;
+    end
 
     assign mux1 = (~ov & err_vld) ? sum : integrator; // Freeze integrator on overflow
     assign nxt_integrator = moving ? mux1 : 15'h0000; 
@@ -114,25 +127,26 @@ module PID(clk, rst_n, moving, err_vld, error, frwrd, lft_spd, rght_spd);
 
     assign frwrd_ext = {1'b0,frwrd}; 
 
-    assign PID = P_ext + I_ext + D_ext; // Combine P, I, and D terms
+    always_ff @(posedge clk) 
+        PID <= P_ext + I_ext + D_ext; // Combine P, I, and D terms
 
     // -- END CALC PID -- //
 
     // -- CALC LEFT SPEED -- //
 
-    assign lft_calc = frwrd_ext + PID[13:3]; // Add PID to frwrd speed 
+    assign lft_calc = frwrd_ext + PID_ff[13:3]; // Add PID to frwrd speed 
     assign lft_mux = moving ? lft_calc : 11'h000; // Zero speed if not moving
     
-    assign lft_spd = (~PID[13] & lft_mux[10]) ? 11'h3FF : lft_mux; // saturate left speed 
+    assign lft_spd = (~PID_ff[13] & lft_mux[10]) ? 11'h3FF : lft_mux; // saturate left speed 
 
     // -- END CALC LEFT SPEED -- //
 
     // -- CALC RIGHT SPEED -- //
 
-    assign rght_calc = frwrd_ext - PID[13:3]; // Subtract PID from frwrd speed
+    assign rght_calc = frwrd_ext - PID_ff[13:3]; // Subtract PID from frwrd speed
     assign rght_mux = moving ? rght_calc : 11'h000; // Zero speed if not moving
 
-    assign rght_spd = (PID[13] & rght_mux[10]) ? 11'h3FF : rght_mux; // saturate right speed
+    assign rght_spd = (PID_ff[13] & rght_mux[10]) ? 11'h3FF : rght_mux; // saturate right speed
 
     // -- END CALC RIGHT SPEED -- //
 

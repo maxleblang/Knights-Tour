@@ -12,7 +12,7 @@ read_file -format sverilog {../KnightsTour.sv \
                             ../rst_synch.v \
                             ../sponge.sv \
                             ../cmd_proc.sv \
-                            ../PID.sv \
+                            ./PID_moreFlops.sv \
                             ../TourCmd.sv \
                             ../UART_wrapper.sv \
                             ../TourLogic.sv \
@@ -77,7 +77,7 @@ read_file -format sverilog {../KnightsTour.sv \
     #################################
     # Synthesize for the first time #
     #################################
-    compile -map_effort medium
+    compile -map_effort high -incremental_mapping
 
     ##############################################
     # Apply clock uncertainty and fix hold times #
@@ -93,7 +93,8 @@ read_file -format sverilog {../KnightsTour.sv \
     #################
     # Compile again #
     #################
-    compile -map_effort medium
+    compile -map_effort medium -only_hold_time
+
 
     ##################################
     # Report the min and max delays  #

@@ -24,7 +24,9 @@ package tb_tasks;
 	// Reset DUT
 	RST_n = 0;
 	@(posedge clk);
-	@(negedge clk); RST_n = 1;   
+	@(negedge clk); 
+    
+    RST_n = 1;   
     end
   endtask
   

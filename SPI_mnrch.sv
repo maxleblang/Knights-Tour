@@ -8,7 +8,7 @@ module SPI_mnrch(clk, rst_n, SS_n, SCLK, MOSI, MISO, snd, cmd, done, resp);
     output logic [15:0] resp;        // Response data 
 
     logic [4:0] bit_cntr, SCLK_div; // Bit counter and SCLK divider
-    logic [15:0] shft_reg;           // Shift register
+    logic [15:0] shft_reg;           // Shift 
 
     logic done16, full, ld_SCLK;     // Status and control
     logic init, set_done, shft;      // Control signals for state machine

@@ -60,20 +60,19 @@ module KnightsTour_tb();
   initial begin
 	initialize(.clk(clk), .RST_n(RST_n), .cmd(cmd), .send_cmd(send_cmd));
 	@(posedge clk);
+	@(negedge clk);
 
 	// Make sure PWM is running and midrail
 	if(lftPWM1 ^ lftPWM2 !== 1 && rghtPWM1 ^ rghtPWM2 !== 1) begin
 		$display("PWM is either not running or not midrail");
 		$stop;
 	end
-	if(iDUT.lft_spd !== 0 && iDUT.rght_spd !== 0) begin
-		$display("PWM is not midrail");
-	end
 	
 	// Check that NEMO_setup gets asserted
 	fork
       		begin : timeout
         		repeat(WAIT_CYCLES) @(posedge clk); 
+			@(negedge clk);
         		$display("ERROR: Timeout waiting for NEMO_setup");
         		$stop();                         
       		end
@@ -91,6 +90,7 @@ module KnightsTour_tb();
 	fork
         	begin : timeout_sig
             		repeat(WAIT_CYCLES) @(posedge clk);
+			@(negedge clk);
             		$display("ERROR: Timeout waiting for cal_done");
             		$stop();
         	end

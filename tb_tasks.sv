@@ -1,7 +1,7 @@
 package tb_tasks;
 
   // local parameters for task configuration
-  localparam WAIT_CYCLES = 50000000;       // Number of cycles to hold reset
+  localparam WAIT_CYCLES = 1000000;       // Number of cycles to hold reset
   localparam UART_POS_ACK = 8'hA5;
   localparam MOVE_POS_ACK = 8'h5A;
 
@@ -26,8 +26,6 @@ package tb_tasks;
 	@(negedge clk); RST_n = 1;   
     end
   endtask
-  
-
 
   ////////////////////
   // Stimulus Tasks //

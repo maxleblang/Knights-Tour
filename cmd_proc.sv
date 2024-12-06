@@ -4,27 +4,27 @@ module cmd_proc(clk, rst_n, cmd, cmd_rdy, clr_cmd_rdy, send_resp, tour_go, headi
 
     input clk, rst_n;
     input [15:0] cmd;
-    input [11:0] heading;
+    input signed [11:0] heading;
     input cmd_rdy, heading_rdy, cal_done, lftIR, rghtIR, cntrIR;
     output logic clr_cmd_rdy, send_resp, tour_go, strt_cal, moving, fanfare_go;
-    output logic [11:0] error;
+    output logic signed [11:0] error;
     output logic [9:0] frwrd;
     
     //Frwrd register intermediate signals
-    logic inc_frwrd, dec_frwrd;
+    logic inc_frwrd, dec_frwrd, clr_frwrd;
     logic frwrd_zero;
     logic max_speed;
-    logic [7:0] counter_inc, counter_dec;
+    logic [9:0] counter_inc, counter_dec;
    
     //Counting squares intermediate signals
     logic move_done, move_cmd;
-    logic squares_to_move = cmd[2:0]; 
+    logic [3:0] squares_to_move; 
     logic [3:0] squares_moved_counter;   
     logic cntrIR1, cntrIR_rising_edge;
 
-    //PID intermediate signals
+    //PID intermediate signals 
     logic abs_error;
-    logic [11:0] cmd_ext, desired_heading, err_nudge;
+    logic signed [11:0] cmd_ext, desired_heading, err_nudge;
 
 
     // -- START FRWRD REGISTER -- //
@@ -35,17 +35,19 @@ module cmd_proc(clk, rst_n, cmd, cmd_rdy, clr_cmd_rdy, send_resp, tour_go, headi
     assign enable_counter =  heading_rdy & ((inc_frwrd & ~max_speed) | (dec_frwrd & ~frwrd_zero)); //oopsy
 
     generate if (FAST_SIM) begin
-        assign counter_inc = 8'h20;
-        assign counter_dec = counter_inc << 1;
+        assign counter_inc = 10'h20;
+        assign counter_dec = 10'h40;
         end else begin
-        assign counter_inc = 8'h03;
-        assign counter_dec = counter_inc << 1;
+        assign counter_inc = 10'h03;
+        assign counter_dec = 10'h06;
         end
     endgenerate
 
 
     always_ff@(posedge clk, negedge rst_n) begin
         if (!rst_n) begin
+            frwrd <= 10'h000;
+        end else if(clr_frwrd) begin
             frwrd <= 10'h000;
         end else if(enable_counter) begin
             if(inc_frwrd) begin
@@ -61,11 +63,15 @@ module cmd_proc(clk, rst_n, cmd, cmd_rdy, clr_cmd_rdy, send_resp, tour_go, headi
 
     // -- START COUNTING SQUARES LOGIC -- //
 
-    always_ff@(posedge clk) begin
+    always_ff@(posedge clk, negedge rst_n) begin
+        if(!rst_n) begin
+            cntrIR1 <= 0;
+        end else begin
             cntrIR1 <= cntrIR;
         end
+    end
 
-    assign cntrIR_rising_edge = cntrIR && !cntrIR1;
+    assign cntrIR_rising_edge = cntrIR & ~cntrIR1;
 
     always_ff@(posedge clk, negedge rst_n) begin
 		if (!rst_n) begin
@@ -80,22 +86,22 @@ module cmd_proc(clk, rst_n, cmd, cmd_rdy, clr_cmd_rdy, send_resp, tour_go, headi
 
     end
 
-    always_ff@(posedge clk) begin
-            if(move_cmd)
-                squares_to_move <= cmd[2:0];
+    always_ff@(posedge clk, negedge rst_n) begin
+        if (!rst_n) begin
+            squares_to_move <= 0;
+        end else if(move_cmd) begin
+            squares_to_move <= cmd[3:0];
+        end
     end
 
-    logic [3:0] double_sqaures_to_move;
-    assign double_sqaures_to_move = {squares_to_move, 1'b0};
-
-    assign move_done = (squares_moved_counter == double_sqaures_to_move);
+    assign move_done = ({squares_to_move, 1'b0} == squares_moved_counter);
 
     // -- END COUNTING SQUARES LOGIC -- //
 
     
     // -- PID INTERFACE -- //
     
-    assign cmd_ext = (cmd[11:4] == 8'h00) ? 12'h00 : ({cmd[11:4], 4'hF});
+    assign cmd_ext = (cmd[11:4] == 8'h00) ? 0 : ({cmd[11:4], 4'hF});
 
     always_ff @(posedge clk, negedge rst_n) begin
         if(!rst_n) begin
@@ -107,15 +113,14 @@ module cmd_proc(clk, rst_n, cmd, cmd_rdy, clr_cmd_rdy, send_resp, tour_go, headi
 
 
     generate if (FAST_SIM) begin
-        assign err_nudge = lftIR ? 12'h1FF : (rghtIR ? 12'hE00 : 12'h000);
+        assign err_nudge = lftIR ? 12'h1FF : (rghtIR ? 12'hE00 : 0);
         end else begin
-        assign err_nudge = lftIR ? 12'h05F : (rghtIR ? 12'hFA1 : 12'h000);
+        assign err_nudge = lftIR ? 12'h05F : (rghtIR ? 12'hFA1 : 0);
         end
     endgenerate
 
-    assign error = heading + err_nudge - desired_heading;
-    assign abs_error = (error[11] == 1'b1) ? (~error + 1'b1) : error; 
- 
+    assign error = heading - desired_heading + err_nudge;
+
     // -- END PID INTERFACE -- //
     
     // -- STATE MACHINE -- //
@@ -146,6 +151,7 @@ module cmd_proc(clk, rst_n, cmd, cmd_rdy, clr_cmd_rdy, send_resp, tour_go, headi
         move_cmd = 0;
         nxt_state = state;
         moving = 0;
+        clr_frwrd = 0;
 
         case(state)
 
@@ -154,6 +160,7 @@ module cmd_proc(clk, rst_n, cmd, cmd_rdy, clr_cmd_rdy, send_resp, tour_go, headi
                     clr_cmd_rdy = 1;
                     if(cmd[14:13] == 2'b01) begin
                         strt_cal = 1;
+                        clr_frwrd = 1;
                         nxt_state = CAL;
                     end else if(cmd[14:13] == 2'b10) begin
                         nxt_state = UPDATE_HEADING;
@@ -173,8 +180,7 @@ module cmd_proc(clk, rst_n, cmd, cmd_rdy, clr_cmd_rdy, send_resp, tour_go, headi
 
             UPDATE_HEADING: begin
                 moving = 1;
-                if(abs_error <= 12'h02c) begin
-                    inc_frwrd = 1;
+                if(error < $signed(12'h02C) && error > $signed(-12'h02C)) begin
                     nxt_state = RAMP_UP;
                 end
             end
@@ -184,7 +190,6 @@ module cmd_proc(clk, rst_n, cmd, cmd_rdy, clr_cmd_rdy, send_resp, tour_go, headi
                 inc_frwrd = 1;
                 if(move_done) begin
                     nxt_state = RAMP_DOWN;
-                    dec_frwrd = 1;
                     if(cmd[12] == 1'b1) begin
                         fanfare_go = 1;
                     end

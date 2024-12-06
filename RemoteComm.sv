@@ -14,8 +14,9 @@ module RemoteComm(clk, rst_n, send_cmd, cmd, TX, RX, cmd_sent, resp_rdy, resp);
     logic [7:0] cmd_low;         // Lower byte of command
     logic sel_high;              // Select high byte 
     logic set_cmd_sent;           // Set command sent signal
+    
     // Instantiate UART 
-    KnightsTour.iWrap.iUART uTest(
+   UART iUART(
         .clk(clk),
         .rst_n(rst_n),
         .RX(RX),
@@ -27,11 +28,13 @@ module RemoteComm(clk, rst_n, send_cmd, cmd, TX, RX, cmd_sent, resp_rdy, resp);
         .tx_data(tx_data),
         .tx_done(tx_done)
     );
+
     // Capture lower byte of command
     always_ff @(posedge clk) 
         if (send_cmd) begin
         cmd_low <= cmd[7:0];
         end
+
     // Select data to transmit
     assign tx_data = sel_high ? cmd[15:8] : cmd_low;
     // State machine 
@@ -40,6 +43,8 @@ module RemoteComm(clk, rst_n, send_cmd, cmd, TX, RX, cmd_sent, resp_rdy, resp);
     always_ff @(posedge clk, negedge rst_n) 
         if (!rst_n) state <= IDLE; 
         else state <= nxt_state;    
+
+
     always_comb begin
         //defaults
         nxt_state = state;          
@@ -67,6 +72,7 @@ module RemoteComm(clk, rst_n, send_cmd, cmd, TX, RX, cmd_sent, resp_rdy, resp);
             end
         endcase
     end
+
     // Update command sent flag
     always_ff @(posedge clk, negedge rst_n) 
         if (!rst_n) cmd_sent <= 1'b0;

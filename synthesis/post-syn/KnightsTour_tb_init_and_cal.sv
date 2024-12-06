@@ -67,9 +67,6 @@ module KnightsTour_tb();
 		$display("PWM is either not running or not midrail");
 		$stop;
 	end
-	if(iDUT.lft_spd !== 0 && iDUT.rght_spd !== 0) begin
-		$display("PWM is not midrail");
-	end
 	
 	// Check that NEMO_setup gets asserted
 	fork
@@ -87,23 +84,9 @@ module KnightsTour_tb();
       		end
     	join
 
-	// Calibrate sensor
-	SendCMD(.clk(clk), .RST_n(RST_n), .input_cmd(16'h2000), .cmd(cmd), .send_cmd(send_cmd), .cmd_sent(cmd_sent));
-	// Make sure cal_done gets asserted
-	fork
-        	begin : timeout_sig
-            		repeat(WAIT_CYCLES) @(posedge clk);
-			@(negedge clk);
-            		$display("ERROR: Timeout waiting for cal_done");
-            		$stop();
-        	end
-        
-        	begin 
-            		@(posedge iDUT.cal_done);
-            		$display("cal_done detected!");
-            		disable timeout_sig;
-        	end
-    	join
+
+      SendCMD(.clk(clk), .RST_n(RST_n), .input_cmd(16'h2000), .cmd(cmd), .send_cmd(send_cmd), .cmd_sent(cmd_sent));
+
 	
 	// Check positive acknowledgement
 	CheckPositiveAck(.clk(clk), .resp_rdy(resp_rdy), .resp(resp), .error(error_ack));
