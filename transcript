@@ -12,10 +12,504 @@
 # //  is prohibited from disclosure under the Trade Secrets Act,
 # //  18 U.S.C. Section 1905.
 # //
-# vsim . 
-# Start time: 10:30:30 on Dec 05,2024
-# ** Error (suppressible): (vsim-19) Failed to access library '' at "".
-# No such file or directory. (errno = ENOENT)
-# Error loading design
-# End time: 10:30:30 on Dec 05,2024, Elapsed time: 0:00:00
-# Errors: 1, Warnings: 0
+# Loading project KnightsTour_tb
+# Compile of cmd_proc.sv was successful.
+# Compile of inert_intf.sv was successful.
+# Compile of inertial_integrator.sv was successful.
+# Compile of IR_intf.sv was successful.
+# Compile of KnightPhysics.sv was successful.
+# Compile of KnightsTour.sv was successful.
+# Compile of MtrDrv.sv was successful.
+# Compile of PB_release.sv was successful.
+# Compile of PID.sv was successful.
+# Compile of PWM11.sv was successful.
+# Compile of RemoteComm.sv was successful.
+# Compile of rst_synch.v was successful.
+# Compile of SPI_iNEMO4.sv was successful.
+# Compile of SPI_mnrch.sv was successful.
+# Compile of sponge.sv was successful.
+# Compile of tb_tasks.sv was successful.
+# Compile of TourCmd.sv was successful.
+# Compile of TourLogic.sv was successful.
+# Compile of UART.sv was successful.
+# Compile of UART_rx.sv was successful.
+# Compile of UART_tx.sv was successful.
+# Compile of UART_wrapper.sv was successful.
+# Compile of KnightsTour_tb_init_and_cal.sv was successful.
+# Compile of max_tb_tasks.sv was successful.
+# Compile of KnightsTour_tb_logic.sv was successful.
+# 25 compiles, 0 failed with no errors.
+# Compile of cmd_proc.sv was successful.
+# Compile of inert_intf.sv was successful.
+# Compile of inertial_integrator.sv was successful.
+# Compile of IR_intf.sv was successful.
+# Compile of KnightPhysics.sv was successful.
+# Compile of KnightsTour.sv was successful.
+# Compile of MtrDrv.sv was successful.
+# Compile of PB_release.sv was successful.
+# Compile of PID.sv was successful.
+# Compile of PWM11.sv was successful.
+# Compile of RemoteComm.sv was successful.
+# Compile of rst_synch.v was successful.
+# Compile of SPI_iNEMO4.sv was successful.
+# Compile of SPI_mnrch.sv was successful.
+# Compile of sponge.sv was successful.
+# Compile of TourCmd.sv was successful.
+# Compile of TourLogic.sv was successful.
+# Compile of UART.sv was successful.
+# Compile of UART_rx.sv was successful.
+# Compile of UART_tx.sv was successful.
+# Compile of UART_wrapper.sv was successful.
+# Compile of KnightsTour_tb_init_and_cal.sv was successful.
+# Compile of max_tb_tasks.sv was successful.
+# Compile of KnightsTour_tb_logic.sv was successful.
+# Compile of KnightsTour_tb_aayushi.sv failed with 6 errors.
+# Compile of tb_tasks.sv failed with 2 errors.
+# 26 compiles, 2 failed with 8 errors.
+# Compile of tb_tasks.sv failed with 8 errors.
+# Compile of tb_tasks.sv failed with 5 errors.
+# Compile of tb_tasks.sv was successful.
+# Compile of KnightsTour_tb_aayushi.sv failed with 6 errors.
+# Compile of KnightsTour_tb_aayushi.sv was successful.
+# Compile of cmd_proc.sv was successful.
+# Compile of inert_intf.sv was successful.
+# Compile of inertial_integrator.sv was successful.
+# Compile of IR_intf.sv was successful.
+# Compile of KnightPhysics.sv was successful.
+# Compile of KnightsTour.sv was successful.
+# Compile of MtrDrv.sv was successful.
+# Compile of PB_release.sv was successful.
+# Compile of PID.sv was successful.
+# Compile of PWM11.sv was successful.
+# Compile of RemoteComm.sv was successful.
+# Compile of rst_synch.v was successful.
+# Compile of SPI_iNEMO4.sv was successful.
+# Compile of SPI_mnrch.sv was successful.
+# Compile of sponge.sv was successful.
+# Compile of TourCmd.sv was successful.
+# Compile of TourLogic.sv was successful.
+# Compile of UART.sv was successful.
+# Compile of UART_rx.sv was successful.
+# Compile of UART_tx.sv was successful.
+# Compile of UART_wrapper.sv was successful.
+# Compile of KnightsTour_tb_init_and_cal.sv was successful.
+# Compile of max_tb_tasks.sv was successful.
+# Compile of KnightsTour_tb_logic.sv was successful.
+# Compile of KnightsTour_tb_aayushi.sv was successful.
+# Compile of tb_tasks.sv was successful.
+# 26 compiles, 0 failed with no errors.
+# Load canceled
+# Compile of cmd_proc.sv was successful.
+# Compile of inert_intf.sv was successful.
+# Compile of inertial_integrator.sv was successful.
+# Compile of IR_intf.sv was successful.
+# Compile of KnightPhysics.sv was successful.
+# Compile of KnightsTour.sv was successful.
+# Compile of MtrDrv.sv was successful.
+# Compile of PB_release.sv was successful.
+# Compile of PID.sv was successful.
+# Compile of PWM11.sv was successful.
+# Compile of RemoteComm.sv was successful.
+# Compile of rst_synch.v was successful.
+# Compile of SPI_iNEMO4.sv was successful.
+# Compile of SPI_mnrch.sv was successful.
+# Compile of sponge.sv was successful.
+# Compile of TourCmd.sv was successful.
+# Compile of TourLogic.sv was successful.
+# Compile of UART.sv was successful.
+# Compile of UART_rx.sv was successful.
+# Compile of UART_tx.sv was successful.
+# Compile of UART_wrapper.sv was successful.
+# Compile of KnightsTour_tb_init_and_cal.sv was successful.
+# Compile of max_tb_tasks.sv was successful.
+# Compile of KnightsTour_tb_logic.sv was successful.
+# Compile of KnightsTour_tb_aayushi.sv was successful.
+# Compile of tb_tasks.sv was successful.
+# 26 compiles, 0 failed with no errors.
+vsim work.KnightsTour_tb_main -voptargs=+acc
+# vsim work.KnightsTour_tb_main -voptargs="+acc" 
+# Start time: 10:55:11 on Dec 06,2024
+# ** Note: (vsim-3812) Design is being optimized...
+# ** Warning: (vopt-10587) Some optimizations are turned off because the +acc switch is in effect. This will cause your simulation to run slowly. Please use -access/-debug to maintain needed visibility.
+# ** Note: (vopt-143) Recognized 1 FSM in module "UART_wrapper(fast)".
+# ** Note: (vopt-143) Recognized 1 FSM in module "TourLogic(fast)".
+# ** Note: (vopt-143) Recognized 1 FSM in module "cmd_proc(fast)".
+# ** Note: (vopt-143) Recognized 1 FSM in module "inertial_integrator(fast)".
+# ** Note: (vopt-143) Recognized 1 FSM in module "SPI_iNEMO4(fast)".
+# ** Note: (vopt-143) Recognized 1 FSM in module "TourCmd(fast)".
+# ** Note: (vopt-143) Recognized 1 FSM in module "sponge(fast)".
+# ** Note: (vopt-143) Recognized 1 FSM in module "inert_intf(fast)".
+# ** Note: (vopt-143) Recognized 1 FSM in module "SPI_mnrch(fast)".
+# ** Note: (vopt-143) Recognized 1 FSM in module "UART_rx(fast)".
+# ** Note: (vopt-143) Recognized 1 FSM in module "UART_tx(fast)".
+# ** Note: (vopt-143) Recognized 1 FSM in module "RemoteComm(fast)".
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=1.
+# Loading sv_std.std
+# Loading work.tb_tasks(fast)
+# Loading work.KnightsTour_tb_main(fast)
+# Loading work.KnightsTour(fast)
+# Loading work.rst_synch(fast)
+# Loading work.UART_wrapper(fast)
+# Loading work.UART(fast)
+# Loading work.UART_tx(fast)
+# Loading work.UART_rx(fast)
+# Loading work.cmd_proc(fast)
+# Loading work.TourLogic(fast)
+# Loading work.TourCmd(fast)
+# Loading work.inert_intf(fast)
+# Loading work.SPI_mnrch(fast)
+# Loading work.inertial_integrator(fast)
+# Loading work.PID(fast)
+# Loading work.MtrDrv(fast)
+# Loading work.PWM11(fast)
+# Loading work.IR_intf(fast)
+# Loading work.PWM3(fast)
+# Loading work.sponge(fast)
+# Loading work.RemoteComm(fast)
+# Loading work.KnightPhysics(fast)
+# Loading work.SPI_iNEMO4(fast)
+# Loading work.inverse_PWM11e(fast)
+add wave -position insertpoint  \
+sim:/KnightsTour_tb_main/lftIR_n \
+sim:/KnightsTour_tb_main/rghtIR_n \
+sim:/KnightsTour_tb_main/cntrIR_n
+add wave -position insertpoint  \
+sim:/KnightsTour_tb_main/cmd \
+sim:/KnightsTour_tb_main/send_cmd
+add wave -position insertpoint  \
+sim:/KnightsTour_tb_main/iDUT/iCMD/desired_heading
+add wave -position insertpoint  \
+sim:/KnightsTour_tb_main/iDUT/iCMD/heading
+add wave -position insertpoint  \
+sim:/KnightsTour_tb_main/iPHYS/xx
+run -all
+# PASSED: NEMO_setup detected!
+# CMD CHECK: Command 2000 has been sent!
+# PASSED: cal_done detected!
+# ACK CHECK: Received positive ack
+# CMD CHECK: Command 4bf1 has been sent!
+# SIG CHECK: heading_rdy detected
+# YAHOO!! All tests pass!!
+# ** Note: $stop    : /filespace/m/mleblang/ECE551/Knights-Tour/testbench/aayushi/KnightsTour_tb_aayushi.sv(167)
+#    Time: 13297635 ns  Iteration: 1  Instance: /KnightsTour_tb_main
+# Break in Module KnightsTour_tb_main at /filespace/m/mleblang/ECE551/Knights-Tour/testbench/aayushi/KnightsTour_tb_aayushi.sv line 167
+# Compile of cmd_proc.sv was successful.
+# Compile of inert_intf.sv was successful.
+# Compile of inertial_integrator.sv was successful.
+# Compile of IR_intf.sv was successful.
+# Compile of KnightPhysics.sv was successful.
+# Compile of KnightsTour.sv was successful.
+# Compile of MtrDrv.sv was successful.
+# Compile of PB_release.sv was successful.
+# Compile of PID.sv was successful.
+# Compile of PWM11.sv was successful.
+# Compile of RemoteComm.sv was successful.
+# Compile of rst_synch.v was successful.
+# Compile of SPI_iNEMO4.sv was successful.
+# Compile of SPI_mnrch.sv was successful.
+# Compile of sponge.sv was successful.
+# Compile of TourCmd.sv was successful.
+# Compile of TourLogic.sv was successful.
+# Compile of UART.sv was successful.
+# Compile of UART_rx.sv was successful.
+# Compile of UART_tx.sv was successful.
+# Compile of UART_wrapper.sv was successful.
+# Compile of KnightsTour_tb_init_and_cal.sv was successful.
+# Compile of max_tb_tasks.sv was successful.
+# Compile of KnightsTour_tb_logic.sv was successful.
+# Compile of KnightsTour_tb_aayushi.sv was successful.
+# Compile of tb_tasks.sv was successful.
+# 26 compiles, 0 failed with no errors.
+add wave -position insertpoint  \
+sim:/KnightsTour_tb_main/iDUT/iCMD/frwrd
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# ** Warning: (vopt-10587) Some optimizations are turned off because the +acc switch is in effect. This will cause your simulation to run slowly. Please use -access/-debug to maintain needed visibility.
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=1.
+# Loading sv_std.std
+# Loading work.tb_tasks(fast)
+# Loading work.KnightsTour_tb_main(fast)
+# Loading work.KnightsTour(fast)
+# Loading work.rst_synch(fast)
+# Loading work.UART_wrapper(fast)
+# Loading work.UART(fast)
+# Loading work.UART_tx(fast)
+# Loading work.UART_rx(fast)
+# Loading work.cmd_proc(fast)
+# Loading work.TourLogic(fast)
+# Loading work.TourCmd(fast)
+# Loading work.inert_intf(fast)
+# Loading work.SPI_mnrch(fast)
+# Loading work.inertial_integrator(fast)
+# Loading work.PID(fast)
+# Loading work.MtrDrv(fast)
+# Loading work.PWM11(fast)
+# Loading work.IR_intf(fast)
+# Loading work.PWM3(fast)
+# Loading work.sponge(fast)
+# Loading work.RemoteComm(fast)
+# Loading work.KnightPhysics(fast)
+# Loading work.SPI_iNEMO4(fast)
+# Loading work.inverse_PWM11e(fast)
+run -all
+# PASSED: NEMO_setup detected!
+# CMD CHECK: Command 2000 has been sent!
+# PASSED: cal_done detected!
+# ACK CHECK: Received positive ack
+# CMD CHECK: Command 4bf1 has been sent!
+# SIG CHECK: heading_rdy detected
+# YAHOO!! All tests pass!!
+# ** Note: $stop    : /filespace/m/mleblang/ECE551/Knights-Tour/testbench/aayushi/KnightsTour_tb_aayushi.sv(167)
+#    Time: 103297635 ns  Iteration: 1  Instance: /KnightsTour_tb_main
+# Break in Module KnightsTour_tb_main at /filespace/m/mleblang/ECE551/Knights-Tour/testbench/aayushi/KnightsTour_tb_aayushi.sv line 167
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# ** Note: (vsim-8009) Loading existing optimized design _opt1
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=1.
+# Loading work.tb_tasks(fast)
+# Loading work.KnightsTour_tb_main(fast)
+# Loading work.KnightsTour(fast)
+# Loading work.rst_synch(fast)
+# Loading work.UART_wrapper(fast)
+# Loading work.UART(fast)
+# Loading work.UART_tx(fast)
+# Loading work.UART_rx(fast)
+# Loading work.cmd_proc(fast)
+# Loading work.TourLogic(fast)
+# Loading work.TourCmd(fast)
+# Loading work.inert_intf(fast)
+# Loading work.SPI_mnrch(fast)
+# Loading work.inertial_integrator(fast)
+# Loading work.PID(fast)
+# Loading work.MtrDrv(fast)
+# Loading work.PWM11(fast)
+# Loading work.IR_intf(fast)
+# Loading work.PWM3(fast)
+# Loading work.sponge(fast)
+# Loading work.RemoteComm(fast)
+# Loading work.KnightPhysics(fast)
+# Loading work.SPI_iNEMO4(fast)
+# Loading work.inverse_PWM11e(fast)
+run -all
+# PASSED: NEMO_setup detected!
+# CMD CHECK: Command 2000 has been sent!
+# PASSED: cal_done detected!
+# ACK CHECK: Received positive ack
+# CMD CHECK: Command 4bf1 has been sent!
+# SIG CHECK: heading_rdy detected
+# YAHOO!! All tests pass!!
+# ** Note: $stop    : /filespace/m/mleblang/ECE551/Knights-Tour/testbench/aayushi/KnightsTour_tb_aayushi.sv(167)
+#    Time: 103297635 ns  Iteration: 1  Instance: /KnightsTour_tb_main
+# Break in Module KnightsTour_tb_main at /filespace/m/mleblang/ECE551/Knights-Tour/testbench/aayushi/KnightsTour_tb_aayushi.sv line 167
+quit -sim
+# End time: 11:10:56 on Dec 06,2024, Elapsed time: 0:15:45
+# Errors: 0, Warnings: 2
+# Compile of KnightsTour_tb_aayushi.sv was successful.
+# Compile of KnightsTour_tb_aayushi.sv failed with 6 errors.
+# Compile of KnightsTour_tb_aayushi.sv failed with 6 errors.
+# Compile of KnightsTour_tb_aayushi.sv failed with 2 errors.
+# Compile of KnightsTour.sv was successful.
+# Compile of cmd_proc.sv was successful.
+# Compile of inert_intf.sv was successful.
+# Compile of inertial_integrator.sv was successful.
+# Compile of IR_intf.sv was successful.
+# Compile of KnightPhysics.sv was successful.
+# Compile of KnightsTour.sv was successful.
+# Compile of MtrDrv.sv was successful.
+# Compile of PB_release.sv was successful.
+# Compile of PID.sv was successful.
+# Compile of PWM11.sv was successful.
+# Compile of RemoteComm.sv was successful.
+# Compile of rst_synch.v was successful.
+# Compile of SPI_iNEMO4.sv was successful.
+# Compile of SPI_mnrch.sv was successful.
+# Compile of sponge.sv was successful.
+# Compile of TourCmd.sv was successful.
+# Compile of TourLogic.sv was successful.
+# Compile of UART.sv was successful.
+# Compile of UART_rx.sv was successful.
+# Compile of UART_tx.sv was successful.
+# Compile of UART_wrapper.sv was successful.
+# Compile of KnightsTour_tb_init_and_cal.sv was successful.
+# Compile of max_tb_tasks.sv was successful.
+# Compile of KnightsTour_tb_logic.sv was successful.
+# Compile of KnightsTour_tb_aayushi.sv failed with 2 errors.
+# Compile of tb_tasks.sv was successful.
+# 26 compiles, 1 failed with 2 errors.
+# Compile of cmd_proc.sv was successful.
+# Compile of inert_intf.sv was successful.
+# Compile of inertial_integrator.sv was successful.
+# Compile of IR_intf.sv was successful.
+# Compile of KnightPhysics.sv was successful.
+# Compile of KnightsTour.sv was successful.
+# Compile of MtrDrv.sv was successful.
+# Compile of PB_release.sv was successful.
+# Compile of PID.sv was successful.
+# Compile of PWM11.sv was successful.
+# Compile of RemoteComm.sv was successful.
+# Compile of rst_synch.v was successful.
+# Compile of SPI_iNEMO4.sv was successful.
+# Compile of SPI_mnrch.sv was successful.
+# Compile of sponge.sv was successful.
+# Compile of TourCmd.sv was successful.
+# Compile of TourLogic.sv was successful.
+# Compile of UART.sv was successful.
+# Compile of UART_rx.sv was successful.
+# Compile of UART_tx.sv was successful.
+# Compile of UART_wrapper.sv was successful.
+# Compile of KnightsTour_tb_init_and_cal.sv was successful.
+# Compile of max_tb_tasks.sv was successful.
+# Compile of KnightsTour_tb_logic.sv was successful.
+# Compile of KnightsTour_tb_aayushi.sv failed with 17 errors.
+# Compile of tb_tasks.sv was successful.
+# 26 compiles, 1 failed with 17 errors.
+# Compile of cmd_proc.sv was successful.
+# Compile of inert_intf.sv was successful.
+# Compile of inertial_integrator.sv was successful.
+# Compile of IR_intf.sv was successful.
+# Compile of KnightPhysics.sv was successful.
+# Compile of KnightsTour.sv was successful.
+# Compile of MtrDrv.sv was successful.
+# Compile of PB_release.sv was successful.
+# Compile of PID.sv was successful.
+# Compile of PWM11.sv was successful.
+# Compile of RemoteComm.sv was successful.
+# Compile of rst_synch.v was successful.
+# Compile of SPI_iNEMO4.sv was successful.
+# Compile of SPI_mnrch.sv was successful.
+# Compile of sponge.sv was successful.
+# Compile of TourCmd.sv was successful.
+# Compile of TourLogic.sv was successful.
+# Compile of UART.sv was successful.
+# Compile of UART_rx.sv was successful.
+# Compile of UART_tx.sv was successful.
+# Compile of UART_wrapper.sv was successful.
+# Compile of KnightsTour_tb_init_and_cal.sv was successful.
+# Compile of max_tb_tasks.sv was successful.
+# Compile of KnightsTour_tb_logic.sv was successful.
+# Compile of KnightsTour_tb_aayushi.sv failed with 5 errors.
+# Compile of tb_tasks.sv was successful.
+# 26 compiles, 1 failed with 5 errors.
+# Compile of cmd_proc.sv was successful.
+# Compile of inert_intf.sv was successful.
+# Compile of inertial_integrator.sv was successful.
+# Compile of IR_intf.sv was successful.
+# Compile of KnightPhysics.sv was successful.
+# Compile of KnightsTour.sv was successful.
+# Compile of MtrDrv.sv was successful.
+# Compile of PB_release.sv was successful.
+# Compile of PID.sv was successful.
+# Compile of PWM11.sv was successful.
+# Compile of RemoteComm.sv was successful.
+# Compile of rst_synch.v was successful.
+# Compile of SPI_iNEMO4.sv was successful.
+# Compile of SPI_mnrch.sv was successful.
+# Compile of sponge.sv was successful.
+# Compile of TourCmd.sv was successful.
+# Compile of TourLogic.sv was successful.
+# Compile of UART.sv was successful.
+# Compile of UART_rx.sv was successful.
+# Compile of UART_tx.sv was successful.
+# Compile of UART_wrapper.sv was successful.
+# Compile of KnightsTour_tb_init_and_cal.sv was successful.
+# Compile of max_tb_tasks.sv was successful.
+# Compile of KnightsTour_tb_logic.sv was successful.
+# Compile of KnightsTour_tb_aayushi.sv was successful.
+# Compile of tb_tasks.sv was successful.
+# 26 compiles, 0 failed with no errors.
+# Load canceled
+# Compile of cmd_proc.sv was successful.
+# Compile of inert_intf.sv was successful.
+# Compile of inertial_integrator.sv was successful.
+# Compile of IR_intf.sv was successful.
+# Compile of KnightPhysics.sv was successful.
+# Compile of KnightsTour.sv was successful.
+# Compile of MtrDrv.sv was successful.
+# Compile of PB_release.sv was successful.
+# Compile of PID.sv was successful.
+# Compile of PWM11.sv was successful.
+# Compile of RemoteComm.sv was successful.
+# Compile of rst_synch.v was successful.
+# Compile of SPI_iNEMO4.sv was successful.
+# Compile of SPI_mnrch.sv was successful.
+# Compile of sponge.sv was successful.
+# Compile of TourCmd.sv was successful.
+# Compile of TourLogic.sv was successful.
+# Compile of UART.sv was successful.
+# Compile of UART_rx.sv was successful.
+# Compile of UART_tx.sv was successful.
+# Compile of UART_wrapper.sv was successful.
+# Compile of KnightsTour_tb_init_and_cal.sv was successful.
+# Compile of max_tb_tasks.sv was successful.
+# Compile of KnightsTour_tb_logic.sv was successful.
+# Compile of KnightsTour_tb_aayushi.sv was successful.
+# Compile of tb_tasks.sv was successful.
+# 26 compiles, 0 failed with no errors.
+vsim -voptargs=+acc work.KnightsTour_tb_yushi
+# vsim -voptargs="+acc" work.KnightsTour_tb_yushi 
+# Start time: 11:18:32 on Dec 06,2024
+# ** Note: (vsim-3812) Design is being optimized...
+# ** Warning: (vopt-10587) Some optimizations are turned off because the +acc switch is in effect. This will cause your simulation to run slowly. Please use -access/-debug to maintain needed visibility.
+# ** Note: (vopt-143) Recognized 1 FSM in module "UART_wrapper(fast)".
+# ** Note: (vopt-143) Recognized 1 FSM in module "TourLogic(fast)".
+# ** Note: (vopt-143) Recognized 1 FSM in module "cmd_proc(fast)".
+# ** Note: (vopt-143) Recognized 1 FSM in module "inertial_integrator(fast)".
+# ** Note: (vopt-143) Recognized 1 FSM in module "SPI_iNEMO4(fast)".
+# ** Note: (vopt-143) Recognized 1 FSM in module "TourCmd(fast)".
+# ** Note: (vopt-143) Recognized 1 FSM in module "sponge(fast)".
+# ** Note: (vopt-143) Recognized 1 FSM in module "inert_intf(fast)".
+# ** Note: (vopt-143) Recognized 1 FSM in module "SPI_mnrch(fast)".
+# ** Note: (vopt-143) Recognized 1 FSM in module "UART_rx(fast)".
+# ** Note: (vopt-143) Recognized 1 FSM in module "UART_tx(fast)".
+# ** Note: (vopt-143) Recognized 1 FSM in module "RemoteComm(fast)".
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=1.
+# Loading sv_std.std
+# Loading work.tb_tasks(fast)
+# Loading work.KnightsTour_tb_yushi(fast)
+# Loading work.KnightsTour(fast)
+# Loading work.rst_synch(fast)
+# Loading work.UART_wrapper(fast)
+# Loading work.UART(fast)
+# Loading work.UART_tx(fast)
+# Loading work.UART_rx(fast)
+# Loading work.cmd_proc(fast)
+# Loading work.TourLogic(fast)
+# Loading work.TourCmd(fast)
+# Loading work.inert_intf(fast)
+# Loading work.SPI_mnrch(fast)
+# Loading work.inertial_integrator(fast)
+# Loading work.PID(fast)
+# Loading work.MtrDrv(fast)
+# Loading work.PWM11(fast)
+# Loading work.IR_intf(fast)
+# Loading work.PWM3(fast)
+# Loading work.sponge(fast)
+# Loading work.RemoteComm(fast)
+# Loading work.KnightPhysics(fast)
+# Loading work.SPI_iNEMO4(fast)
+# Loading work.inverse_PWM11e(fast)
+add wave -position insertpoint  \
+sim:/KnightsTour_tb_yushi/iDUT/iCMD/desired_heading
+add wave -position insertpoint  \
+sim:/KnightsTour_tb_yushi/iDUT/iCMD/heading
+add wave -position insertpoint  \
+sim:/KnightsTour_tb_yushi/iDUT/iCMD/frwrd
+add wave -position insertpoint  \
+sim:/KnightsTour_tb_yushi/iDUT/lftIR \
+sim:/KnightsTour_tb_yushi/iDUT/cntrIR \
+sim:/KnightsTour_tb_yushi/iDUT/rghtIR
+add wave -position insertpoint  \
+sim:/KnightsTour_tb_yushi/iPHYS/xx \
+sim:/KnightsTour_tb_yushi/iPHYS/yy
+run -all
+# PASSED: NEMO_setup detected!
+# CMD CHECK: Command 2000 has been sent!
+# PASSED: cal_done detected!
+# ACK CHECK: Received positive ack
+# CMD CHECK: Command 4bf1 has been sent!
+# SIG CHECK: heading_rdy detected
+# ERROR: Timeout waiting IR signal
+# ** Note: $stop    : /filespace/m/mleblang/ECE551/Knights-Tour/testbench/aayushi/tb_tasks.sv(185)
+#    Time: 13297635 ns  Iteration: 1  Instance: /KnightsTour_tb_yushi
+# Break in NamedBeginStat timeout_IR at /filespace/m/mleblang/ECE551/Knights-Tour/testbench/aayushi/tb_tasks.sv line 185

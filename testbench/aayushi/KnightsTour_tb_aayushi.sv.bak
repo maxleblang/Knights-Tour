@@ -1,5 +1,5 @@
 
-module KnightsTour_tb_yushi();
+module KnightsTour_tb();
 
   // import all tasks and functions
   import tb_tasks::*;

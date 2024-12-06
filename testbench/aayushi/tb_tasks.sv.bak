@@ -173,7 +173,7 @@ package tb_tasks;
 
     task automatic CheckIR(
     ref reg clk,
-    ref logic cntrIR,
+    ref logic IR,
     output logic error_IR
     );
     begin
