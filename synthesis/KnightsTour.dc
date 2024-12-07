@@ -77,7 +77,7 @@ read_file -format sverilog {../KnightsTour.sv \
     #################################
     # Synthesize for the first time #
     #################################
-    compile -map_effort high -incremental_mapping
+    compile -map_effort high 
 
     ##############################################
     # Apply clock uncertainty and fix hold times #
@@ -94,7 +94,6 @@ read_file -format sverilog {../KnightsTour.sv \
     # Compile again #
     #################
     compile -map_effort medium -only_hold_time
-
 
     ##################################
     # Report the min and max delays  #

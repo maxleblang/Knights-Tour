@@ -106,3 +106,5 @@ run -all
 # ** Note: $stop    : /filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/testbench/tests/KnightsTour_tb_aayushi.sv(351)
 #    Time: 232101975 ns  Iteration: 3  Instance: /KnightsTour_tb_yushi
 # Break in Module KnightsTour_tb_yushi at /filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/testbench/tests/KnightsTour_tb_aayushi.sv line 351
+# End time: 18:51:12 on Dec 06,2024, Elapsed time: 0:01:27
+# Errors: 0, Warnings: 3

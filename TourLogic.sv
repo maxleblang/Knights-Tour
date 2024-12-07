@@ -1,7 +1,5 @@
 module TourLogic(clk,rst_n,x_start,y_start,go,done,indx,move);
 
-  //TODO: run sometimes doesn't print?
-
   input clk,rst_n;				        // 50MHz clock and active low asynch reset
   input [2:0] x_start, y_start;	  // starting position on 5x5 board
   input go;						            // initiate calculation of solution
