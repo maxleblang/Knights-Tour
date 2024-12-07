@@ -48,12 +48,8 @@ module PID(clk, rst_n, moving, err_vld, error, frwrd, lft_spd, rght_spd);
                  error[9:0];
 
      // Pipeline flip-flop for err_sat
-    always_ff @(posedge clk, negedge rst_n) begin
-        if(!rst_n) begin
-             err_sat_ff <= 0;
-        end else begin
+    always_ff @(posedge clk) begin
             err_sat_ff <= err_sat;
-        end
     end 
 
     assign P_term = (err_sat_ff) * (P_COEFF);
@@ -61,12 +57,8 @@ module PID(clk, rst_n, moving, err_vld, error, frwrd, lft_spd, rght_spd);
     // -- END P_TERM -- //
 
     // -- I_TERM -- //
-    always_ff @(posedge clk, negedge rst_n) begin
-        if(!rst_n) begin
-            err_vld_ff <= 0;
-        end else begin
+    always_ff @(posedge clk) begin
             err_vld_ff <= err_vld;
-        end
     end
 
     assign err_sign_ext = {{5{err_sat_ff[9]}},err_sat_ff}; 
@@ -119,10 +111,7 @@ module PID(clk, rst_n, moving, err_vld, error, frwrd, lft_spd, rght_spd);
 
     assign frwrd_ext = {1'b0,frwrd}; 
     
-    always_ff @(posedge clk, negedge rst_n)
-        if(!rst_n)
-            PID <= 0;
-        else 
+    always_ff @(posedge clk)
             PID <= {P_term[13], P_term[13:1] }+ {{5{I_term[8]}}, I_term} + {D_term[12], D_term}; // Combine P, I, and D terms
 
 

@@ -9,10 +9,10 @@
 read_file -format sverilog {../KnightsTour.sv \
                             ../inert_intf.sv \
                             ../IR_intf.sv \
-                            ../rst_synch.v \
+                            ../rst_synch.sv \
                             ../sponge.sv \
                             ../cmd_proc.sv \
-                            ./PID_moreFlops.sv \
+                            ../PID.sv \
                             ../TourCmd.sv \
                             ../UART_wrapper.sv \
                             ../TourLogic.sv \

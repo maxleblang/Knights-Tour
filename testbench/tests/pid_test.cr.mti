@@ -19,6 +19,13 @@ QuestaSim vlog 2023.2_1 Compiler 2023.05 May 12 2023
 Top level modules:
 	sponge
 
+} {} {}} {/filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/PID.sv} {1 {vlog -work work -vopt -sv -stats=none {/filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/PID.sv}
+QuestaSim vlog 2023.2_1 Compiler 2023.05 May 12 2023
+-- Compiling module PID
+
+Top level modules:
+	PID
+
 } {} {}} {/filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/TourCmd.sv} {1 {vlog -work work -vopt -sv -stats=none {/filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/TourCmd.sv}
 QuestaSim vlog 2023.2_1 Compiler 2023.05 May 12 2023
 -- Compiling module TourCmd
@@ -76,6 +83,13 @@ QuestaSim vlog 2023.2_1 Compiler 2023.05 May 12 2023
 Top level modules:
 	--none--
 
+} {} {}} {/filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/rst_synch.sv} {1 {vlog -work work -vopt -sv -stats=none {/filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/rst_synch.sv}
+QuestaSim vlog 2023.2_1 Compiler 2023.05 May 12 2023
+-- Compiling module rst_synch
+
+Top level modules:
+	rst_synch
+
 } {} {}} {/filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/UART_rx.sv} {1 {vlog -work work -vopt -sv -stats=none {/filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/UART_rx.sv}
 QuestaSim vlog 2023.2_1 Compiler 2023.05 May 12 2023
 -- Compiling module UART_rx
@@ -117,13 +131,6 @@ QuestaSim vlog 2023.2_1 Compiler 2023.05 May 12 2023
 
 Top level modules:
 	RemoteComm
-
-} {} {}} {/filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/rst_synch.v} {1 {vlog -work work -vopt -stats=none {/filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/rst_synch.v}
-QuestaSim vlog 2023.2_1 Compiler 2023.05 May 12 2023
--- Compiling module rst_synch
-
-Top level modules:
-	rst_synch
 
 } {} {}} {/filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/PB_release.sv} {1 {vlog -work work -vopt -sv -stats=none {/filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/PB_release.sv}
 QuestaSim vlog 2023.2_1 Compiler 2023.05 May 12 2023

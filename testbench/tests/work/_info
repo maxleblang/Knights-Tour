@@ -25,6 +25,10 @@ R0
 R1
 R0
 R1
+R0
+R1
+R0
+R1
 !s11f vlog 2023.2_1 2023.05, May 12 2023
 13
 !s112 1.1
@@ -34,10 +38,10 @@ R1
 cModel Technology
 Z2 d/filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/testbench/tests
 T_opt
-!s110 1733532094
-VIFiCM]31>E=dfi2A`_hTR2
+!s110 1733532585
+VbZfEToD7Uc4<8Bhb;Y4UK2
 04 20 4 work KnightsTour_tb_yushi fast 0
-=12-000ae431a4f1-675399be-393db-e9107
+=1-000ae431a4f1-67539ba9-95532-eeb0d
 R1
 !s12b OEM100
 !s124 OEM100
@@ -48,7 +52,7 @@ OE;O;2023.2_1;77
 vcmd_proc
 2/filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/cmd_proc.sv
 Z4 DXx6 sv_std 3 std 0 22 9oUSJO;AeEaW`l:M@^WG92
-Z5 !s110 1733529072
+Z5 !s110 1733532547
 !i10b 1
 !s100 JEJ<;mdPK9_Pl?cA2>WJS0
 IoBjF1`k:@cCeF2@h[2VWC1
@@ -57,14 +61,14 @@ R2
 Z6 w1733528735
 8/filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/cmd_proc.sv
 F/filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/cmd_proc.sv
-!i122 0
+!i122 58
 L0 1 214
 Z7 VDg1SIo80bB@j0V0VzS_@n1
 Z8 OE;L;2023.2_1;77
 r1
 !s85 0
 31
-Z9 !s108 1733529072.000000
+Z9 !s108 1733532547.000000
 !s107 /filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/cmd_proc.sv|
 !s90 -reportprogress|300|-work|work|-vopt|-sv|-stats=none|/filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/cmd_proc.sv|
 !i113 0
@@ -82,7 +86,7 @@ R2
 R6
 8/filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/inert_intf.sv
 F/filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/inert_intf.sv
-!i122 1
+!i122 59
 L0 7 151
 R7
 R8
@@ -107,7 +111,7 @@ R2
 R6
 8/filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/inertial_integrator.sv
 F/filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/inertial_integrator.sv
-!i122 2
+!i122 60
 L0 1 204
 R7
 R8
@@ -132,7 +136,7 @@ R2
 Z12 w1733528734
 Z13 8/filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/KnightPhysics.sv
 Z14 F/filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/KnightPhysics.sv
-!i122 4
+!i122 62
 L0 262 49
 R7
 R8
@@ -158,7 +162,7 @@ R2
 Z18 w1733528733
 Z19 8/filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/IR_intf.sv
 Z20 F/filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/IR_intf.sv
-!i122 3
+!i122 61
 L0 1 120
 R7
 R8
@@ -184,7 +188,7 @@ R2
 R12
 R13
 R14
-!i122 4
+!i122 62
 L0 1 257
 R7
 R8
@@ -210,7 +214,7 @@ R2
 R12
 8/filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/KnightsTour.sv
 F/filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/KnightsTour.sv
-!i122 5
+!i122 63
 L0 1 116
 R7
 R8
@@ -228,7 +232,7 @@ vKnightsTour_tb_yushi
 2/filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/testbench/tests/KnightsTour_tb_aayushi.sv
 R4
 DXx4 work 8 tb_tasks 0 22 8RzPAc<D@^dz[jYlBNDmU3
-!s110 1733529078
+!s110 1733532546
 !i10b 1
 !s100 S3zZB7@JZWQjdhUbLOAjA2
 Ilj1VK7]V0Y9]RS]HF=M`03
@@ -237,14 +241,14 @@ R2
 w1733528346
 8/filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/testbench/tests/KnightsTour_tb_aayushi.sv
 F/filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/testbench/tests/KnightsTour_tb_aayushi.sv
-!i122 22
+!i122 57
 L0 2 357
 R7
 R8
 r1
 !s85 0
 31
-!s108 1733529078.000000
+!s108 1733532546.000000
 !s107 /filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/testbench/tests/KnightsTour_tb_aayushi.sv|
 !s90 -reportprogress|300|-work|work|-vopt|-sv|-stats=none|/filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/testbench/tests/KnightsTour_tb_aayushi.sv|
 !i113 0
@@ -263,7 +267,7 @@ R2
 R12
 8/filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/MtrDrv.sv
 F/filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/MtrDrv.sv
-!i122 6
+!i122 64
 L0 1 19
 R7
 R8
@@ -289,7 +293,7 @@ R2
 R12
 8/filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/PB_release.sv
 F/filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/PB_release.sv
-!i122 7
+!i122 65
 L0 1 23
 R7
 R8
@@ -306,23 +310,23 @@ n@p@b_release
 vPID
 2/filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/PID.sv
 R4
-!s110 1733532088
+Z23 !s110 1733532548
 !i10b 1
-!s100 :l64eGoBmMff5>2c3b3690
-I8RA[_1e3C`cOHl?lP83de0
+!s100 mOl``?Y9Ze0Pz:VXR1g>L3
+IAhHJ1I9?HQl79B]fW4;UL3
 S1
 R2
-w1733532063
+w1733532545
 8/filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/PID.sv
 F/filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/PID.sv
-!i122 33
-L0 1 149
+!i122 78
+L0 1 138
 R7
 R8
 r1
 !s85 0
 31
-!s108 1733532088.000000
+Z24 !s108 1733532548.000000
 !s107 /filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/PID.sv|
 !s90 -reportprogress|300|-work|work|-vopt|-sv|-stats=none|/filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/PID.sv|
 !i113 0
@@ -341,7 +345,7 @@ R2
 R12
 8/filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/PWM11.sv
 F/filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/PWM11.sv
-!i122 9
+!i122 66
 L0 1 27
 R7
 R8
@@ -367,7 +371,7 @@ R2
 R18
 R19
 R20
-!i122 3
+!i122 61
 L0 126 36
 R7
 R8
@@ -393,7 +397,7 @@ R2
 R12
 8/filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/RemoteComm.sv
 F/filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/RemoteComm.sv
-!i122 10
+!i122 67
 L0 1 82
 R7
 R8
@@ -408,27 +412,29 @@ R10
 R3
 n@remote@comm
 vrst_synch
-2/filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/rst_synch.v
-R5
+2/filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/rst_synch.sv
+R4
+R23
 !i10b 1
-!s100 JP`4?c44?ZBZFTE[anIDa2
-In?mXF;Gnc@`HLjQn5cZ3P1
+!s100 2T388]Ihe=4m8]Bk4n;R63
+I[JI]e7IOdSO0DBSzg3@753
+S1
 R2
-Z23 w1733528741
-8/filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/rst_synch.v
-F/filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/rst_synch.v
-!i122 11
+w1733532268
+8/filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/rst_synch.sv
+F/filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/rst_synch.sv
+!i122 79
 L0 1 18
 R7
 R8
 r1
 !s85 0
 31
-R9
-!s107 /filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/rst_synch.v|
-!s90 -reportprogress|300|-work|work|-vopt|-stats=none|/filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/rst_synch.v|
+R24
+!s107 /filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/rst_synch.sv|
+!s90 -reportprogress|300|-work|work|-vopt|-sv|-stats=none|/filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/rst_synch.sv|
 !i113 0
-o-work work -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+R10
 R3
 vSPI_iNEMO4
 2/filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/SPI_iNEMO4.sv
@@ -442,7 +448,7 @@ R2
 R12
 8/filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/SPI_iNEMO4.sv
 F/filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/SPI_iNEMO4.sv
-!i122 12
+!i122 68
 L0 1 196
 R7
 R8
@@ -468,7 +474,7 @@ R2
 R12
 8/filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/SPI_mnrch.sv
 F/filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/SPI_mnrch.sv
-!i122 13
+!i122 69
 L0 1 117
 R7
 R8
@@ -491,10 +497,10 @@ R5
 IazjA>DX:Z8foVd0ZaZmHW1
 S1
 R2
-R23
+w1733528741
 8/filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/sponge.sv
 F/filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/sponge.sv
-!i122 14
+!i122 70
 L0 2 169
 R7
 R8
@@ -510,7 +516,7 @@ R3
 Xtb_tasks
 2/filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/tb_tasks.sv
 R4
-Z24 !s110 1733529073
+R5
 !i10b 1
 !s100 RFmbz1_j@NGC=8EEVXK>=0
 I8RzPAc<D@^dz[jYlBNDmU3
@@ -519,7 +525,7 @@ R2
 w1733528901
 8/filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/tb_tasks.sv
 F/filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/tb_tasks.sv
-!i122 15
+!i122 71
 L0 1 0
 V8RzPAc<D@^dz[jYlBNDmU3
 R8
@@ -535,7 +541,7 @@ R3
 vTourCmd
 2/filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/TourCmd.sv
 R4
-R24
+R5
 !i10b 1
 !s100 A?3cKD5Vzd[j=R9f[[<Xl2
 Icez3>5[4H@E1^=4H`mmaB1
@@ -544,14 +550,14 @@ R2
 R12
 8/filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/TourCmd.sv
 F/filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/TourCmd.sv
-!i122 16
+!i122 72
 L0 1 183
 R7
 R8
 r1
 !s85 0
 31
-Z25 !s108 1733529073.000000
+R9
 !s107 /filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/TourCmd.sv|
 !s90 -reportprogress|300|-work|work|-vopt|-sv|-stats=none|/filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/TourCmd.sv|
 !i113 0
@@ -561,7 +567,7 @@ n@tour@cmd
 vTourLogic
 2/filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/TourLogic.sv
 R4
-R24
+R5
 !i10b 1
 !s100 MKAhCYIljH_BBCBZRLokY1
 I8@K^AVKE2nF_IDFG5=ZnI0
@@ -570,14 +576,14 @@ R2
 R6
 8/filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/TourLogic.sv
 F/filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/TourLogic.sv
-!i122 17
+!i122 73
 L0 1 277
 R7
 R8
 r1
 !s85 0
 31
-R25
+R9
 !s107 /filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/TourLogic.sv|
 !s90 -reportprogress|300|-work|work|-vopt|-sv|-stats=none|/filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/TourLogic.sv|
 !i113 0
@@ -587,7 +593,7 @@ n@tour@logic
 vUART
 2/filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/UART.sv
 R4
-R24
+R5
 !i10b 1
 !s100 1c7jdaCh948Z2HJGWz_II2
 InNHneJDUO3d4CckPS5J080
@@ -596,14 +602,14 @@ R2
 R6
 8/filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/UART.sv
 F/filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/UART.sv
-!i122 18
+!i122 74
 L0 1 24
 R7
 R8
 r1
 !s85 0
 31
-R25
+R9
 !s107 /filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/UART.sv|
 !s90 -reportprogress|300|-work|work|-vopt|-sv|-stats=none|/filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/UART.sv|
 !i113 0
@@ -613,7 +619,7 @@ n@u@a@r@t
 vUART_rx
 2/filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/UART_rx.sv
 R4
-R24
+R5
 !i10b 1
 !s100 n5]k]:>0TH?]hlDc<2:dl3
 IY9lIfOYj>95nQ@UzZH4LR2
@@ -622,14 +628,14 @@ R2
 R6
 8/filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/UART_rx.sv
 F/filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/UART_rx.sv
-!i122 19
+!i122 75
 L0 1 108
 R7
 R8
 r1
 !s85 0
 31
-R25
+R9
 !s107 /filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/UART_rx.sv|
 !s90 -reportprogress|300|-work|work|-vopt|-sv|-stats=none|/filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/UART_rx.sv|
 !i113 0
@@ -639,7 +645,7 @@ n@u@a@r@t_rx
 vUART_tx
 2/filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/UART_tx.sv
 R4
-R24
+R23
 !i10b 1
 !s100 Qnoo^WK:KYVQzbL;K7OVB0
 IR1I2InHmVX6HC1g<VjRFV2
@@ -648,14 +654,14 @@ R2
 R6
 8/filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/UART_tx.sv
 F/filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/UART_tx.sv
-!i122 20
+!i122 76
 L0 1 103
 R7
 R8
 r1
 !s85 0
 31
-R25
+R9
 !s107 /filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/UART_tx.sv|
 !s90 -reportprogress|300|-work|work|-vopt|-sv|-stats=none|/filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/UART_tx.sv|
 !i113 0
@@ -665,7 +671,7 @@ n@u@a@r@t_tx
 vUART_wrapper
 2/filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/UART_wrapper.sv
 R4
-R24
+R23
 !i10b 1
 !s100 Sh<[P@GY9;;Jkl_]OXVN<0
 Ie<C?KV19P2iX@MKKV7l@e3
@@ -674,14 +680,14 @@ R2
 R6
 8/filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/UART_wrapper.sv
 F/filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/UART_wrapper.sv
-!i122 21
+!i122 77
 L0 1 96
 R7
 R8
 r1
 !s85 0
 31
-R25
+R24
 !s107 /filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/UART_wrapper.sv|
 !s90 -reportprogress|300|-work|work|-vopt|-sv|-stats=none|/filespace/a/asingh276/win/desktop/ECE 551/Knights-Tour/UART_wrapper.sv|
 !i113 0
