@@ -7,12 +7,10 @@ module PID(clk, rst_n, moving, err_vld, error, frwrd, lft_spd, rght_spd);
     input clk, rst_n;
     input moving, err_vld;
     input signed [11:0]error;
-    input [9:0]frwrd;
+    input [9:0] frwrd;
     output logic [10:0] lft_spd, rght_spd;
 
     //Intermediate Signals
-    logic signed [12:0] P_div2;
-    logic signed [13:0] P_ext, I_ext, D_ext;
     logic [10:0]frwrd_ext;
     logic signed [13:0] PID;
     logic signed [10:0] lft_calc, rght_calc;
@@ -41,7 +39,7 @@ module PID(clk, rst_n, moving, err_vld, error, frwrd, lft_spd, rght_spd);
 
     logic signed [9:0] err_sat_ff;
     logic signed err_vld_ff;
-    logic signed [13:0] PID_ff;
+
 
 
     // -- P_TERM -- //
@@ -50,25 +48,33 @@ module PID(clk, rst_n, moving, err_vld, error, frwrd, lft_spd, rght_spd);
                  error[9:0];
 
      // Pipeline flip-flop for err_sat
-    always_ff @(posedge clk) begin
-        err_sat_ff <= err_sat;
-    end
+    always_ff @(posedge clk, negedge rst_n) begin
+        if(!rst_n) begin
+             err_sat_ff <= 0;
+        end else begin
+            err_sat_ff <= err_sat;
+        end
+    end 
 
-    assign P_term = $signed(err_sat_ff) * $signed(P_COEFF);
+    assign P_term = (err_sat_ff) * (P_COEFF);
 
     // -- END P_TERM -- //
 
     // -- I_TERM -- //
+    always_ff @(posedge clk, negedge rst_n) begin
+        if(!rst_n) begin
+            err_vld_ff <= 0;
+        end else begin
+            err_vld_ff <= err_vld;
+        end
+    end
+
     assign err_sign_ext = {{5{err_sat_ff[9]}},err_sat_ff}; 
     assign sum = err_sign_ext + integrator; // Add error to integrator
 
     assign ov = (err_sign_ext[14] & integrator[14] & ~sum[14])? 1'b1 : // +ve overflow
                 (~err_sign_ext[14] & ~integrator[14] & sum[14]) ? 1'b1 : // -ve overflow
                 1'b0;
-
-    always_ff @(posedge clk) begin
-        err_vld_ff <= err_vld;
-    end
 
     assign mux1 = (~ov & err_vld_ff) ? sum : integrator; // Freeze integrator on overflow
     assign nxt_integrator = moving ? mux1 : 15'h0000; 
@@ -85,26 +91,18 @@ module PID(clk, rst_n, moving, err_vld, error, frwrd, lft_spd, rght_spd);
 
     // -- D_TERM -- //
 
-    //stage 1
-    always_ff @(posedge clk, negedge rst_n)
-        if(!rst_n)
+    always_ff @(posedge clk, negedge rst_n) begin
+        if(!rst_n) begin
             q1 <= 10'b0;
-        else if(err_vld_ff)
-            q1 <= err_sat_ff;
-        
-    //stage 2
-    always_ff @(posedge clk, negedge rst_n)
-        if(!rst_n)
             q2 <= 10'b0;
-        else if(err_vld_ff)
-            q2 <= q1;
-
-    //stage 3    
-    always_ff @(posedge clk, negedge rst_n)
-        if(!rst_n)
             prev_err <= 10'b0;
-        else if(err_vld_ff)
-            prev_err <= q2; //store previous error        
+        end else if(err_vld_ff) begin
+            q1 <= err_sat_ff;
+            q2 <= q1;
+            prev_err <= q2; //store previous error      
+        end  
+    end
+ 
 
     //Calculate difference b/w current and previous error
     assign D_diff = err_sat_ff - prev_err;
@@ -113,41 +111,40 @@ module PID(clk, rst_n, moving, err_vld, error, frwrd, lft_spd, rght_spd);
                  (D_diff[9] & ~&D_diff[8:7])? 8'h80: //-ve saturation
                  D_diff[7:0]; // no saturation
 
-    assign D_term = $signed(D_diff_sat) * $signed(D_COEFF); //calculate D_term
+    assign D_term = (D_diff_sat) * (D_COEFF); //calculate D_term
 
     // -- END D_TERM -- //
 
     // -- CALC PID -- //
-    
-    assign P_div2 = P_term[13:1]; // Divide P_term by 2
-
-    assign P_ext = {P_div2[12], P_div2 }; 
-    assign I_ext = {{5{I_term[8]}}, I_term}; 
-    assign D_ext = {D_term[12], D_term}; 
 
     assign frwrd_ext = {1'b0,frwrd}; 
+    
+    always_ff @(posedge clk, negedge rst_n)
+        if(!rst_n)
+            PID <= 0;
+        else 
+            PID <= {P_term[13], P_term[13:1] }+ {{5{I_term[8]}}, I_term} + {D_term[12], D_term}; // Combine P, I, and D terms
 
-    // always_ff @(posedge clk) 
-    assign PID = P_ext + I_ext + D_ext; // Combine P, I, and D terms
 
     // -- END CALC PID -- //
 
     // -- CALC LEFT SPEED -- //
 
-    assign lft_calc = frwrd_ext + PID_ff[13:3]; // Add PID to frwrd speed 
+    assign lft_calc = frwrd_ext + PID[13:3]; // Add PID to frwrd speed 
     assign lft_mux = moving ? lft_calc : 11'h000; // Zero speed if not moving
     
-    assign lft_spd = (~PID_ff[13] & lft_mux[10]) ? 11'h3FF : lft_mux; // saturate left speed 
+    assign lft_spd = (~PID[13] & lft_mux[10]) ? 11'h3FF : lft_mux; // saturate left speed 
 
     // -- END CALC LEFT SPEED -- //
 
     // -- CALC RIGHT SPEED -- //
 
-    assign rght_calc = frwrd_ext - PID_ff[13:3]; // Subtract PID from frwrd speed
+    assign rght_calc = frwrd_ext - PID[13:3]; // Subtract PID from frwrd speed
     assign rght_mux = moving ? rght_calc : 11'h000; // Zero speed if not moving
 
-    assign rght_spd = (PID_ff[13] & rght_mux[10]) ? 11'h3FF : rght_mux; // saturate right speed
+    assign rght_spd = (PID[13] & rght_mux[10]) ? 11'h3FF : rght_mux; // saturate right speed
 
     // -- END CALC RIGHT SPEED -- //
 
 endmodule
+
