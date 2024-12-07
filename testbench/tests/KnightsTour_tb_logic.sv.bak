@@ -5,7 +5,7 @@ module KnightsTour_tb_max();
 
   // import all tasks and functions
   import tb_tasks::*;
-  import max_tb_tasks::*;
+  import logic_tb_tasks::*;
   
   ///////////////////////////
   // Stimulus of type reg //
@@ -225,7 +225,7 @@ module KnightsTour_tb_max();
 	
 	// Check for move ack
 	CheckPositiveMoveAck(.clk(clk), .resp(iRMT.resp), .resp_rdy(iRMT.resp_rdy));
-	$display("MOVE 4 VERIFIED");
+	$display("MOVE 5 VERIFIED");
 
 	
 	// All tests pass!

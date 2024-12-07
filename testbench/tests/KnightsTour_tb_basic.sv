@@ -1,5 +1,5 @@
 
-module KnightsTour_tb_yushi();
+module KnightsTour_tb_basic();
 
   // import all tasks and functions
   import tb_tasks::*;
@@ -337,13 +337,6 @@ module KnightsTour_tb_yushi();
 	// -- END (6) -- //
 
 
-
-	// -- 5. TEST TOUR LOGIC? -- //
-
-	// -- END (5) -- //
-
-
-
 	// -- YAY -- //
 
 	// All tests pass!
@@ -356,7 +349,3 @@ module KnightsTour_tb_yushi();
     #5 clk = ~clk;
   
 endmodule
-
-
-
-

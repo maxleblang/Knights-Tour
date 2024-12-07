@@ -1,11 +1,11 @@
 /*
 This tests that the knight is moving correctly in response to the tour logic
 */
-module KnightsTour_tb_max();
+module KnightsTour_tb_logic();
 
   // import all tasks and functions
   import tb_tasks::*;
-  import max_tb_tasks::*;
+  //import logic_tb_tasks::*;
   
   ///////////////////////////
   // Stimulus of type reg //
